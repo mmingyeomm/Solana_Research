@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana | Turbine Protocol</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #9945FF;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+        }
+
+        .section {
+            background-color: #2a2a2a;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #14F195;
+            border-bottom: 2px solid #14F195;
+            padding-bottom: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+            color: #9945FF;
+        }
+
+        .content-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .flow-container {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .flow-step {
+            background-color: #353535;
+            border: 1px solid #505050;
+            border-radius: 6px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .step-number {
+            background-color: #9945FF;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            position: absolute;
+            top: -15px;
+            left: 20px;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #14F195;
+            margin-bottom: 10px;
+            margin-left: 15px;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background-color: #353535;
+            border: 1px solid #505050;
+            border-left: 4px solid #14F195;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            border: 1px solid #404040;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 15px 0;
+            color: #14F195;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background-color: #353535;
+            border: 1px solid #505050;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #FFB800;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background-color: #353535;
+            border: 1px solid #505050;
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #9945FF;
+            margin-bottom: 10px;
+        }
+
+        .feature-description {
+            font-size: 0.95rem;
+            color: #c0c0c0;
+            line-height: 1.5;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #353535;
+            border: 1px solid #505050;
+            border-radius: 6px;
+        }
+
+        .process-number {
+            background-color: #9945FF;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .process-text {
+            font-size: 1rem;
+            color: #e0e0e0;
+        }
+
+        .quote-box {
+            background-color: #353535;
+            border: 1px solid #505050;
+            border-radius: 6px;
+            padding: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            text-align: center;
+            color: #e0e0e0;
+        }
+
+        .advantages-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .advantages-list li {
+            padding: 12px;
+            margin-bottom: 8px;
+            background-color: #353535;
+            border-left: 3px solid #14F195;
+            border-radius: 4px;
+            color: #e0e0e0;
+        }
+
+        .advantages-list li::before {
+            content: "✓";
+            color: #14F195;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #14F195;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .flow-step {
+                padding: 15px;
+            }
+            
+            .step-number {
+                width: 25px;
+                height: 25px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="core.html" class="back-link">&larr; 메인으로 돌아가기</a>
+        <div class="section">
+            <div class="section-title">Turbine 프로토콜</div>
+            
+            <div class="content-text">
+                Turbine은 리더가 자신의 블록을 네트워크 나머지 부분에 전파하는 과정입니다. 비트토렌트(BitTorrent)에서 영감을 받아 빠르고 효율적으로 설계되었습니다.
+            </div>
+
+            <div class="section-subtitle">Shreds (슈레드)</div>
+            <div class="content-text">
+                Turbine은 Shreds라고 하는 작은 데이터 패킷으로 거래 데이터를 분해합니다. 비디오 스트림의 개별 프레임과 유사하며, 최대 1280바이트 크기입니다.
+            </div>
+
+            <div class="section-subtitle">FEC (Forward Error Correction)</div>
+            <div class="content-text">
+                Shreds는 전방 오류 수정(FEC) 배치로 그룹화됩니다. 기본적으로 64개의 Shreds(32개 데이터 + 32개 복구)로 구성되며, 배치 내 패킷의 절반까지 손실되어도 모든 데이터를 복구할 수 있습니다.
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-title">소거 코딩</div>
+                    <div class="feature-description">다항식 기반의 오류 검출 및 수정 방식으로 데이터 무결성을 보장합니다.</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-title">Turbine Tree</div>
+                    <div class="feature-description">검증자들이 층(Layer)으로 조직되어 트리를 형성하며, 지분이 많은 검증자가 상단에 배치됩니다.</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-title">머클 검증</div>
+                    <div class="feature-description">각 64 Shreds 배치는 머클화되며, 루트는 리더에 의해 서명되고 이전 배치에 연결됩니다.</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-title">동적 회전</div>
+                    <div class="feature-description">보안상 이유로 트리의 순서는 각 새로운 Shreds 배치마다 회전됩니다.</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>핵심 목표:</strong> 리더와 루트 노드의 외부 데이터 이탈 압력을 완화하는 것입니다. 송신 및 재송신 시스템을 활용하여 부하를 분산시킵니다.
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
