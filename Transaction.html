@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana | Transaction</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #1a1a1a; color: #e0e0e0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .section { background-color: #2a2a2a; border: 1px solid #404040; border-radius: 8px; padding: 30px; margin-bottom: 30px; }
+        .section-title { font-size: 1.8rem; margin-bottom: 20px; color: #14F195; border-bottom: 2px solid #14F195; padding-bottom: 10px; }
+        .section-subtitle { font-size: 1.3rem; margin: 25px 0 15px 0; color: #9945FF; }
+        .content-text { font-size: 1rem; line-height: 1.7; margin-bottom: 20px; color: #e0e0e0; }
+        .process-flow { display: flex; flex-direction: column; gap: 10px; margin: 25px 0; }
+        .process-step { display: flex; align-items: center; padding: 15px; background-color: #353535; border: 1px solid #505050; border-radius: 6px; }
+        .process-number { background-color: #9945FF; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 15px; flex-shrink: 0; }
+        .process-text { font-size: 1rem; color: #e0e0e0; }
+        .highlight-box { background-color: #353535; border: 1px solid #505050; border-left: 4px solid #14F195; border-radius: 6px; padding: 20px; margin: 20px 0; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #14F195; text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; 메인으로 돌아가기</a>
+        <div class="section">
+            <div class="section-title">솔라나 트랜잭션 (Transaction)</div>
+            
+            <div class="content-text">
+                트랜잭션은 솔라나 블록체인의 상태를 변경하기 위한 서명된 지시사항들의 묶음입니다. 단순한 토큰 전송부터 복잡한 스마트 컨트랙트 실행까지 모든 활동은 트랜잭션을 통해 이루어집니다.
+            </div>
+
+            <div class="section-subtitle">트랜잭션 처리 유닛 (TPU)</div>
+            <div class="content-text">
+                모든 트랜잭션은 검증자 내의 TPU(Transaction Processing Unit)라는 최적화된 모듈을 통해 처리됩니다. TPU는 여러 단계로 구성되어 트랜잭션을 효율적으로 검증하고 실행합니다.
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <div class="process-text"><strong>Fetch Stage:</strong> QUIC 프로토콜을 통해 네트워크로부터 트랜잭션을 수신합니다.</div>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <div class="process-text"><strong>SigVerify Stage:</strong> 트랜잭션의 서명을 빠르고 병렬적으로 검증합니다.</div>
+                </div>
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <div class="process-text"><strong>Banking Stage:</strong> 트랜잭션을 실행하고, 계정 상태를 업데이트하여 블록을 생성합니다.</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>미리 선언되는 계정:</strong> 솔라나 트랜잭션의 핵심 특징 중 하나는 트랜잭션이 어떤 계정을 읽고 쓸 것인지 미리 명시해야 한다는 점입니다. 이 덕분에 네트워크는 서로 충돌하지 않는 트랜잭션들을 안전하게 병렬로 처리할 수 있어 높은 처리량을 달성합니다.
+            </div>
+
+            <div class="section-subtitle">트랜잭션과 수수료</div>
+            <div class="content-text">
+                솔라나는 매우 낮은 수수료($0.00025 평균)와 빠른 처리 속도(65,000+ TPS)를 자랑합니다. 수수료는 우선순위(Priority)와 컴퓨팅 자원 사용량에 따라 결정되며, 로컬 수수료 시장(Localized Fee Market)을 통해 특정 스마트 컨트랙트에 대한 수요가 전체 네트워크의 수수료에 영향을 주지 않도록 합니다.
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

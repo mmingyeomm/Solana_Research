@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana | Leader</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #1a1a1a; color: #e0e0e0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .section { background-color: #2a2a2a; border: 1px solid #404040; border-radius: 8px; padding: 30px; margin-bottom: 30px; }
+        .section-title { font-size: 1.8rem; margin-bottom: 20px; color: #14F195; border-bottom: 2px solid #14F195; padding-bottom: 10px; }
+        .section-subtitle { font-size: 1.3rem; margin: 25px 0 15px 0; color: #9945FF; }
+        .content-text { font-size: 1rem; line-height: 1.7; margin-bottom: 20px; color: #e0e0e0; }
+        .highlight-box { background-color: #353535; border: 1px solid #505050; border-left: 4px solid #14F195; border-radius: 6px; padding: 20px; margin: 20px 0; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #14F195; text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
+        .advantages-list { list-style: none; padding: 0; margin: 20px 0; }
+        .advantages-list li { padding: 12px; margin-bottom: 8px; background-color: #353535; border-left: 3px solid #14F195; border-radius: 4px; color: #e0e0e0; }
+        .advantages-list li::before { content: "✓"; color: #14F195; font-weight: bold; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; 메인으로 돌아가기</a>
+        <div class="section">
+            <div class="section-title">솔라나 리더 (Leader)</div>
+            
+            <div class="content-text">
+                솔라나 네트워크에서 리더는 특정 시간(슬롯) 동안 블록을 생성하고 네트워크에 전파할 책임이 있는 검증자(Validator)입니다. 이더리움과 같은 다른 블록체인과 달리, 솔라나는 리더가 연속적으로 선출되어 중단 없이 블록을 생성합니다.
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="images/Leader.png" alt="Solana Leader" style="max-width: 80%; height: auto; border-radius: 8px; border: 1px solid #404040;">
+            </div>
+
+            <div class="section-subtitle">리더의 역할과 책임</div>
+            <ul class="advantages-list">
+                <li><strong>트랜잭션 처리:</strong> 들어오는 트랜잭션들을 수신하여 서명을 검증하고, Banking Stage에서 처리합니다.</li>
+                <li><strong>블록 생성:</strong> 자신의 슬롯 동안 트랜잭션을 실행하고, 그 결과를 모아 블록을 완성합니다.</li>
+                <li><strong>PoH 생성:</strong> 트랜잭션의 순서를 증명하기 위해 처리와 동시에 PoH(Proof of History) 해시를 생성합니다.</li>
+                <li><strong>블록 전파:</strong> 완성된 블록을 Turbine 프로토콜을 통해 다른 검증자들에게 효율적으로 전파합니다.</li>
+            </ul>
+
+            <div class="section-subtitle">리더 선출 방식</div>
+            <div class="content-text">
+                리더는 지분 증명(PoS)에 따라 가중된 라운드 로빈 방식으로 예측 가능하게 선출됩니다. 각 에포크(epoch, 약 2-3일)마다 리더 스케줄이 정해지며, 모든 노드는 누가 언제 리더가 될지 미리 알 수 있습니다.
+            </div>
+            
+            <div class="highlight-box">
+                <strong>리더 스케줄의 투명성:</strong> 리더 순서가 미리 알려져 있기 때문에, 검증자들은 자신의 리더 슬롯이 되기 전에 미리 트랜잭션을 수신하고 처리할 준비를 할 수 있습니다. 이를 통해 네트워크 지연을 최소화합니다.
+            </div>
+
+            <div class="section-subtitle">리더의 시간 (슬롯)</div>
+            <div class="content-text">
+                각 리더에게는 연속된 4개의 슬롯이 할당되며, 각 슬롯은 약 400ms입니다. 따라서 한 리더는 약 1.6초 동안 블록을 생성할 책임을 가집니다. 이 시간 동안 리더는 최대한 많은 트랜잭션을 처리하여 블록에 포함시키려고 시도합니다.
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
