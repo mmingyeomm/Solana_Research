@@ -3,18 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana | Leader</title>
+    <title>Solana | Leader (상세)</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #1a1a1a; color: #e0e0e0; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .section { background-color: #2a2a2a; border: 1px solid #404040; border-radius: 8px; padding: 30px; margin-bottom: 30px; }
+        .section { background-color: #2a2a2a; border: 1px solid #404040; border-radius: 8px; padding: 30px; margin-bottom: 30px; position: relative; }
         .section-title { font-size: 1.8rem; margin-bottom: 20px; color: #14F195; border-bottom: 2px solid #14F195; padding-bottom: 10px; }
         .section-subtitle { font-size: 1.3rem; margin: 25px 0 15px 0; color: #9945FF; }
         .content-text { font-size: 1rem; line-height: 1.7; margin-bottom: 20px; color: #e0e0e0; }
         .highlight-box { background-color: #353535; border: 1px solid #505050; border-left: 4px solid #14F195; border-radius: 6px; padding: 20px; margin: 20px 0; }
         .back-link { display: inline-block; margin-bottom: 20px; color: #14F195; text-decoration: none; font-weight: 600; }
         .back-link:hover { text-decoration: underline; }
+        hr { border: 0; height: 1px; background: #404040; margin: 40px 0; }
+        .github-edit-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            border: 1px solid #404040;
+        }
+        .github-edit-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .github-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
         .advantages-list { list-style: none; padding: 0; margin: 20px 0; }
         .advantages-list li { padding: 12px; margin-bottom: 8px; background-color: #353535; border-left: 3px solid #14F195; border-radius: 4px; color: #e0e0e0; }
         .advantages-list li::before { content: "✓"; color: #14F195; font-weight: bold; margin-right: 8px; }
@@ -23,85 +49,17 @@
 <body>
     <div class="container">
         <a href="index.html" class="back-link">&larr; 메인으로 돌아가기</a>
-      
         <div class="section">
-          <!-- ================= 제목 ================ -->
-          <div class="section-title">솔라나 리더(Leader)란?</div>
-          <div class="content-text">
-            솔라나 네트워크에서 <strong>리더</strong>는 특정 시간 구간(<em>슬롯</em>) 동안 블록을
-            생성하고 네트워크에 전파하도록 지정된 검증자(Validator)입니다.
-            <br>
-            이더리움·비트코인과 달리 솔라나는 <em>미리 계산된 리더 스케줄</em>을 사용해
-            끊김 없는 블록 생산을 보장하며, 하나의 리더가 약 1.6초(4 슬롯) 동안 연속으로
-            블록을 생성합니다.
-          </div>
-      
-          <div style="text-align:center;margin:20px 0;">
-            <img src="images/Leader.png"
-                 alt="Solana Leader"
-                 style="max-width:80%;height:auto;border-radius:8px;border:1px solid #404040;">
-          </div>
-      
-          <!-- ============ 리더의 역할 ============== -->
-          <div class="section-subtitle">리더의 핵심 업무 4단계</div>
-          <ol class="advantages-list">
-            <li><strong>트랜잭션 수집</strong><br>
-                리더 슬롯이 시작되면, 클라이언트와 다른 노드들이 전송한 트랜잭션을
-                <em>Gulf Stream</em> 메커니즘으로 앞당겨 전달받아 메모리 큐에 정렬합니다.</li>
-      
-            <li><strong>PoH(Proof-of-History) 진행</strong><br>
-                리더는 약 400 ms마다 ‘틱(Tick)’ 해시를 생성해 시간 순서를 증명하며,
-                일부 틱에 트랜잭션 배치를 삽입합니다.</li>
-      
-            <li><strong>병렬 실행 &amp; 상태 업데이트</strong><br>
-                런타임의 <em>Bank</em> 모듈에서 계정 락을 활용해 병렬로 트랜잭션을 실행,
-                수수료 징수·계정 상태 변경·루트 해시 계산을 마칩니다.</li>
-      
-            <li><strong>블록(→ 슈레드) 생성 &amp; 전파</strong><br>
-                실행 결과를 포함한 블록을 128 KB 단위 <em>슈레드(Shred)</em>로 분할하고,
-                <em>Turbine</em> 트리 네트워크를 통해 O(log N) Hop으로 전체 노드에 배포합니다.</li>
-          </ol>
-
-          <div class="highlight-box" style="margin-top:24px;">
-            <strong>TLDR</strong><br>
-            리더는 <em>트랜잭션 수집 → PoH → 병렬 실행 → 슈레드 전파</em>를 초단위로
-            반복해, 솔라나가 수천 TPS를 유지하도록 만드는 네트워크의 “심장”입니다. 
-            <br> <br>
-            위의 내용을 보면 알 수 있듯이 밸리데이터들은 선정된 리더에게 트랜잭션을 보내고, 리더는 받은 트랜잭션을 바탕으로 블록을 생성하게 됩니다. 
-            또한 블록을 생성하면서 동시에 POH 해시를 돌려 솔라나의 트랜잭션 순서까지 결정하는 것을 알 수 있습니다. 결국 리더는 만들어진 블록과, POH 데이터를 Shread로 쪼개어 다른 노드들에게 전파를 하게 되는데 Turbine을 통해 전파를 하게됩니다. 
-          </div>
-          
-
-          <!-- ============ 리더 선출 ============== -->
-          <div class="section-subtitle">어떻게 리더가 선출되나?</div>
-          <div class="content-text">
-            • 매 <strong>에포크</strong>(약 2–3일)마다 네트워크 스냅샷을 기준으로
-            <em>지분 증명(PoS)</em> 가중 라운드로빈 방식으로 리더 순서표가 계산됩니다.
-            <br>
-            • 모든 노드는 “슬롯 → 리더” 매핑을 미리 알고 있어, 자신의 리더 슬롯이 오기
-            전에 하드웨어·네트워크 준비를 완료할 수 있습니다.
-          </div>
-      
-          <div class="highlight-box">
-            <strong> 사전 예측의 장점:</strong>
-            트랜잭션은 “미래 리더”에게 바로 전달되므로, 줄 서기 지연이 크게 줄어들고
-            처리량(TPS)이 높아집니다.
-          </div>
-      
-          <!-- ============ 추가 FAQ ============== -->
-          <div class="section-subtitle">추가로 알아두면 좋은 점</div>
-          <ul class="content-text">
-            <li><strong>보상:</strong> 리더가 수집한 수수료 (MEV) + 인플레이션 보상을 받습니다.</li>
-            <li><strong>실패 시:</strong> 슬롯 내에 블록을 못 만들면 해당 슬롯은 ‘스킵’,
-                반복되면 페널티(잠재적 슬래싱) 위험이 있습니다.</li>
-            <li><strong>경제성:</strong> 리더 역할을 제대로 수행하지 못하면 보상을 잃게
-                 되므로, 검증자들은 정직하게 행동할 경제적 유인이 있습니다.</li>
-            </ul>
+            <a href="https://github.com/mmingyeomm/Solana_Research/edit/master/Leader.html" target="_blank" class="github-edit-link">
+                <svg class="github-icon" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.07-.55-.17-.55-.38 0-.19.01-.82.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                <span>Suggest an edit</span>
+            </a>
+            <div class="section-title">Leader (상세)</div>
             
-           <p style="padding-left: 20px; font-size: 0.9em; color: #a0a0a0;">* MEV에 대한 내용은 다른 섹션에서 다루겠습니다.</p> 
-            <!-- ============ 요약 카드 ============== -->
-           
-          </div>
+            <div class="section-subtitle">리더의 역할과 책임</div>
+            <div class="content-text">
+                이러한 과정을 통해 솔라나는 중앙화된 주체 없이도 빠르고 효율적으로 블록을 생성하고 네트워크 전체의 상태를 일관되게 유지할 수 있습니다. 리더는 단순한 블록 생성자를 넘어, 솔라나 네트워크의 성능과 안정성을 책임지는 핵심적인 역할을 수행합니다.
+            </div>
         </div>
     </div>
 </body>

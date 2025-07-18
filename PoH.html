@@ -3,55 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana | Proof of History (PoH)</title>
+    <title>Solana | Proof of History (상세)</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #1a1a1a; color: #e0e0e0; line-height: 1.6; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .section { background-color: #2a2a2a; border: 1px solid #404040; border-radius: 8px; padding: 30px; margin-bottom: 30px; }
+        .section { background-color: #2a2a2a; border: 1px solid #404040; border-radius: 8px; padding: 30px; margin-bottom: 30px; position: relative; }
         .section-title { font-size: 1.8rem; margin-bottom: 20px; color: #14F195; border-bottom: 2px solid #14F195; padding-bottom: 10px; }
         .section-subtitle { font-size: 1.3rem; margin: 25px 0 15px 0; color: #9945FF; }
         .content-text { font-size: 1rem; line-height: 1.7; margin-bottom: 20px; color: #e0e0e0; }
-        .highlight-box { background-color: #353535; border: 1px solid #505050; border-left: 4px solid #14F195; border-radius: 6px; padding: 20px; margin: 20px 0; }
         .back-link { display: inline-block; margin-bottom: 20px; color: #14F195; text-decoration: none; font-weight: 600; }
         .back-link:hover { text-decoration: underline; }
-        .advantages-list { list-style: none; padding: 0; margin: 20px 0; }
-        .advantages-list li { padding: 12px; margin-bottom: 8px; background-color: #353535; border-left: 3px solid #14F195; border-radius: 4px; color: #e0e0e0; }
-        .advantages-list li::before { content: "✓"; color: #14F195; font-weight: bold; margin-right: 8px; }
+        hr { border: 0; height: 1px; background: #404040; margin: 40px 0; }
+        .github-edit-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            border: 1px solid #404040;
+        }
+        .github-edit-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .github-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <a href="index.html" class="back-link">&larr; 메인으로 돌아가기</a>
         <div class="section">
-            <div class="section-title">Proof of History (PoH)</div>
-            
+            <a href="https://github.com/mmingyeomm/Solana_Research/edit/master/PoH.html" target="_blank" class="github-edit-link">
+                <svg class="github-icon" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.07-.55-.17-.55-.38 0-.19.01-.82.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                <span>Suggest an edit</span>
+            </a>
+            <div class="section-title">Proof of History (상세)</div>
+
+            <div class="section-subtitle">기본 원리</div>
             <div class="content-text">
-                Proof of History (PoH)는 솔라나의 핵심 혁신 기술 중 하나로, 합의 메커니즘이 아닙니다. 대신, PoH는 블록체인에 시간을 인코딩하여 트랜잭션의 발생 순서를 암호학적으로 증명하는 방법입니다. 이는 네트워크가 "신뢰가 필요 없는(trustless)" 시간의 원천을 갖게 하여 노드 간 합의를 극적으로 가속화합니다.
+                PoH의 핵심 아이디어는 **연속적 해시 체인(Sequential Hash Chain)**에 기반합니다. 이는 다음 해시를 계산할 때 반드시 이전 해시의 결과값이 입력으로 포함되는 구조로, `hash_2 = Hash(hash_1)`과 같이 끊임없이 반복됩니다. 이 연속적인 계산 과정을 통해, 특정 시점으로부터 얼마나 많은 계산이 이루어졌는지를 암호학적으로 증명할 수 있습니다.
             </div>
-
-            <div class="section-subtitle">PoH의 작동 원리</div>
+            <div style="text-align:center;margin:20px 0;">
+                <img src="images/POH.png"
+                     alt="Solana PoH"
+                     style="max-width:80%;height:auto;border-radius:8px;border:1px solid #404040;">
+            </div>
+            <div style="text-align:center;margin:20px 0;">
+                <img src="images/POH2.png"
+                     alt="Solana PoH2"
+                     style="max-width:80%;height:auto;border-radius:8px;border:1px solid #404040;">
+            </div>
             <div class="content-text">
-                PoH는 **검증 가능한 지연 함수(Verifiable Delay Function, VDF)** 를 사용하여 구현됩니다. 이 함수는 순차적으로 실행되어야 하며, 특정 시간이 경과했음을 증명하는 출력을 생성합니다.
+                이 연속 해시 체인에 트랜잭션 같은 이벤트가 발생한 시점을 기록하면, 나중에 누가 보더라도 해당 이벤트가 해시 체인의 어느 지점에서 발생했는지 검증할 수 있습니다. 이벤트 정보뿐만 아니라 체인상의 위치(Sequence Number)도 함께 기록되므로, 이벤트 발생 순서가 왜곡되기 어렵습니다. PoH는 이처럼 강력한 순서 증명 기능을 제공함과 동시에, 블록체인에 가상의 글로벌 시계(Timestamp) 역할을 합니다.
             </div>
-            <ul class="advantages-list">
-                <li><strong>순차적 해싱:</strong> PoH는 이전 해시 출력을 다음 해시의 입력으로 사용하는 루프를 계속해서 실행합니다.</li>
-                <li><strong>시간 증명:</strong> 이 과정은 예측할 수 없는 결과를 생성하며, 특정 횟수의 해시가 실행되었다는 것은 특정 시간이 흘렀음을 증명합니다.</li>
-                <li><strong>타임스탬프:</strong> 리더는 트랜잭션을 수신하면 PoH 시퀀스에 "타임스탬프"를 찍어 순서를 기록합니다. 이 기록은 다른 검증자들이 쉽게 검증할 수 있습니다.</li>
-            </ul>
-
-            <div class="highlight-box">
-                <strong>아날로지:</strong> PoH는 매 순간 헤드라인이 바뀌는 신문과 같습니다. 어떤 사건이 특정 신문 발행 전에 일어났다는 것을 쉽게 증명할 수 있는 것처럼, PoH는 트랜잭션이 특정 시점 이전에 발생했음을 암호학적으로 증명합니다.
+            <div class="content-text">
+                이를 통해 블록을 제안하는 리더는 새로운 블록의 생성 시점을 빠르게 증명하고 네트워크에 전파할 수 있습니다. 기존 PBFT나 PoS 합의에서는 블록 생성 시점을 증명하기 위해 참여자 간의 잦은 메시지 교환이 필요했지만, PoH는 이러한 추가적인 통신 과정을 대폭 줄여줍니다.
             </div>
 
-            <div class="section-subtitle">PoH가 중요한 이유</div>
-             <div class="content-text">
-                PoH는 솔라나가 다른 블록체인보다 훨씬 높은 성능을 달성할 수 있게 하는 핵심 요소입니다.
+            <hr>
+
+            <div class="section-subtitle">PBFT와의 비교</div>
+            <div class="content-text">
+                기존 PBFT나 PoS 합의 방식에서는 리더가 트랜잭션을 모아 블록을 만든 뒤, "이 블록은 X 시간에 만들었다"는 정보를 포함해 네트워크에 전파합니다. 그러면 다른 노드들은 여러 단계의 투표(Prepare, Pre-commit, Commit 등)를 거쳐 해당 블록이 유효한지, 리더가 시간을 속이지 않았는지 등을 서로 메시지를 주고받으며 확인합니다. 이 과정은 합의 완결성을 높이지만, 통신 오버헤드로 인해 시간이 오래 걸리고 TPS가 제한되는 단점이 있습니다.
             </div>
-            <ul class="advantages-list">
-                <li><strong>시간 동기화 문제 해결:</strong> 분산 시스템에서 노드들이 이벤트 순서에 동의하도록 하는 것은 매우 어렵습니다. PoH는 모든 노드가 신뢰할 수 있는 공통의 시계를 제공하여 이 문제를 해결합니다.</li>
-                <li><strong>합의 오버헤드 감소:</strong> 트랜잭션 순서가 이미 정해져 있으므로, 검증자들은 순서를 정하기 위해 서로 통신할 필요가 없습니다. 그들은 단지 PoH가 생성한 순서를 확인하고 투표하기만 하면 됩니다.</li>
-                <li><strong>네트워크 효율성 증대:</strong> 노드 간 통신량이 줄어들면서 전체 네트워크의 처리량이 크게 향상됩니다.</li>
+            <div style="text-align:center;margin:20px 0;">
+                <img src="images/PBFT.png"
+                     alt="Solana PBFT"
+                     style="max-width:80%;height:auto;border-radius:8px;border:1px solid #404040;">
+              </div>
+            <div class="content-text">
+                반면, PoH는 이러한 시간 증명 문제를 다르게 해결합니다. PoH의 연속적인 해시 체인 자체가 시간이 흘렀음을 내재적으로 증명하기 때문입니다. 리더는 트랜잭션이 들어오면 그저 PoH 체인에 해당 시점을 기록하기만 하면 됩니다. 다른 노드들은 이 기록을 보고 복잡한 통신 없이도 간단한 계산만으로 블록 생성 시점을 검증할 수 있습니다. 이처럼 PoH는 글로벌 시계 역할을 수행하여 시간 증명에 대한 합의 과정을 생략시키고, 통신 오버헤드를 극적으로 줄여 솔라나가 높은 TPS를 달성하는 핵심적인 역할을 합니다.
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">참고 자료</div>
+            <div class="content-text">
+                슈퍼팀에서 데브캡틴으로 활동하고 계시는 @boosik 님의 자료를 참고하였습니다.
+            </div>
+            <ul style="list-style: disc; padding-left: 20px; margin-top: 10px;">
+                <li><a href="https://www.web3gb.com/Proof-of-History-Detail-179160ffffb68033aa36d0f1c9720bae" target="_blank" style="color: #14F195; text-decoration: none;">Web3GB - Proof-of-History(역사 증명)에 대해 자세히 알아보기</a></li>
             </ul>
         </div>
     </div>
