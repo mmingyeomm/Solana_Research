@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana | Block Building (상세)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #1a1a1a; color: #e0e0e0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .section { background-color: #2a2a2a; border: 1px solid #404040; border-radius: 8px; padding: 30px; margin-bottom: 30px; position: relative; }
+        .section-title { font-size: 1.8rem; margin-bottom: 20px; color: #14F195; border-bottom: 2px solid #14F195; padding-bottom: 10px; }
+        .section-subtitle { font-size: 1.3rem; margin: 25px 0 15px 0; color: #9945FF; }
+        .content-text { font-size: 1rem; line-height: 1.7; margin-bottom: 20px; color: #e0e0e0; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #14F195; text-decoration: none; font-weight: 600; }
+        .back-link:hover { text-decoration: underline; }
+        hr { border: 0; height: 1px; background: #404040; margin: 40px 0; }
+        .github-edit-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+            border: 1px solid #404040;
+        }
+        .github-edit-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .github-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        .highlight-box {
+            background-color: #353535;
+            border: 1px solid #505050;
+            border-left: 4px solid #14F195;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; 메인으로 돌아가기</a>
+        <div class="section">
+            <a href="https://github.com/mmingyeomm/Solana_Research/edit/master/BlockBuilding.html" target="_blank" class="github-edit-link">
+                <svg class="github-icon" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.07-.55-.17-.55-.38 0-.19.01-.82.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                <span>Suggest an edit</span>
+            </a>
+            <div class="section-title">Block Building</div>
+
+            <div class="section-subtitle">리더의 역할</div>
+            <div class="content-text">
+                솔라나 네트워크에서 리더는 특정 시간(슬롯) 동안 블록을 생성할 책임이 있습니다. 리더는 PoH(Proof of History)를 통해 생성된 순서대로 트랜잭션을 수신하고, 이를 검증한 후 블록에 포함시킵니다. 이 과정은 네트워크의 효율성과 속도를 극대화하도록 설계되었습니다.
+            </div>
+            
+            <div class="highlight-box">
+                리더는 Gulfstream을 통해 들어온 트랜잭션들을 효율적으로 처리하여 블록을 생성합니다. 이 과정에서 PoH를 사용하여 트랜잭션의 순서를 증명하고, 검증된 트랜잭션들을 모아 하나의 블록으로 만듭니다.
+            </div>
+
+            <div class="section-subtitle">블록 생성 과정</div>
+            <div class="content-text">
+                1. <strong>트랜잭션 수집:</strong> 리더는 Gulfstream을 통해 사용자 및 다른 노드로부터 트랜잭션을 수신합니다. Stake-Weighted QoS와 같은 메커니즘을 통해 중요한 트랜잭션을 우선적으로 처리할 수 있습니다.<br><br>
+                2. <strong>PoH를 이용한 시퀀싱:</strong> 리더는 수신된 트랜잭션들을 PoH 시퀀스에 추가하여 시간 순서를 기록합니다. 이는 각 트랜잭션이 발생한 시점을 암호학적으로 증명하는 역할을 합니다.<br><br>
+                3. <strong>트랜잭션 실행 및 상태 업데이트:</strong> 리더는 트랜잭션을 실행하고, 그 결과에 따라 계정 상태를 업데이트합니다. 이 과정은 Sealevel을 통해 병렬로 처리되어 높은 처리량을 달성합니다.<br><br>
+                4. <strong>블록 생성 및 전파:</strong> 리더는 처리된 트랜잭션들을 모아 블록을 생성하고, PoH 해시와 함께 네트워크에 전파합니다. 이 블록은 다음 리더에게 전달되어 체인에 연결됩니다.
+            </div>
+          </div>
+      </div>
+</body>
+</html> 

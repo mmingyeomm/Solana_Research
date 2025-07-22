@@ -115,6 +115,23 @@
             font-size: 0.95rem;
             color: #c0c0c0;
             line-height: 1.6;
+            margin-bottom: 15px; /* 버튼과의 간격 추가 */
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #9945FF;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .learn-more-btn:hover {
+            background-color: #8a36e8;
         }
 
         .highlight-box {
@@ -414,7 +431,10 @@
                     <div class="flow-step">
                         <div class="step-number">3</div>
                         <div class="step-title">리더 처리</div>
-                        <div class="step-description">리더가 트랜잭션을 수신하여 Signature Verify를 거쳐 Banking Stage에 진입합니다. 여기서 계좌 상태가 변경되고 동시에 PoH(Proof of History) 해시가 생성됩니다.</div>
+                        <div class="step-description">
+                            현재 슬롯의 리더는 PoH(Proof of History) 시퀀스에서 트랜잭션의 순서를 확인하고, 트랜잭션의 유효성을 검증한 후, 상태(State)를 업데이트합니다. 이 과정에서 리더는 다른 노드로부터 받은 트랜잭션을 처리하고 블록에 포함시킵니다.
+                        </div>
+                        <a href="BlockBuilding.html" class="learn-more-btn">자세히 보기 &rarr;</a>
                     </div>
     
                     <div class="flow-step">
