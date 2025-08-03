@@ -182,11 +182,7 @@
 </head>
 <body>
   <div class="slide">
-    <h1>SOLANA: From Basics to Transaction Lifetime</h1>
-    <p>A comprehensive journey through Solana's architecture, from fundamental concepts to the complete transaction processing lifecycle</p>
-    <div class="highlight">
-      <p><strong>학습 내용:</strong> 이더리움 트랜잭션 생명주기, 솔라나의 리더 메커니즘, PoH 합의, 트랜잭션 구조, Gulfstream 포워딩, Banking Stage 처리, Turbine 전파, 그리고 완전한 종단간 트랜잭션 플로우 비교</p>
-    </div>
+    <h1>SOLANA ARCHITECTURE</h1>
   </div>
 
 
@@ -256,10 +252,10 @@
           <li>EL이 멤풀에서 트랜잭션을 가져와 실행 페이로드 구성</li>
           <li>EL이 페이로드를 CL에 반환, CL이 블록으로 래핑하고 서명</li>
         </ul>
+        </div>
       </div>
-      
+      -------------> slow factor 
     </div>
-  </div>
 
   <div class="slide">
     <h2>6단계: 블록 전파 및 슬롯 증명</h2>
@@ -271,6 +267,7 @@
     <div class="highlight">
       <p><strong>주요 병목:</strong> 네트워크 전파 지연이 발생할 수 있는 구간입니다.</p>
     </div>
+    -------------> slow factor 
   </div>
 
   <div class="slide">
@@ -335,7 +332,7 @@
         <span class="stat-number">2 에포크</span>
         <div class="stat-label">일반적인 최종성 시간 (≈ 12.8분)</div>
       </div>
-    </div>
+  </div>
     
     <div class="highlight">
       <p><strong>주요 병목:</strong> 12.8분의 긴 최종성 시간이 이더리움의 주요 성능 제약입니다.</p>
@@ -448,7 +445,7 @@
     </div>
   </div>
 
-    <div class="slide">
+  <div class="slide">
     <h2>리더의 핵심 업무 4단계</h2>
     <h3>초단위로 반복되는 블록 생성 과정</h3>
     
@@ -576,7 +573,7 @@
     <div class="highlight">
       <p><strong>핵심 문제:</strong> 솔라나는 400ms라는 매우 짧은 블록타임을 가지고 있기 때문에, 예를 들어 리더 스케줄이 A → C → B로 나와 있다고 할 때 서로 블록을 동시에 생성하는 일이 발생할 수 있습니다. 기존 방식처럼 NTP나 로컬 OS 시간에 의존하면 부정확한 동기화로 인한 충돌이 빈번히 발생합니다.</p>
     </div>
-
+    
     <h3>The Proof of History Solution</h3>
     <p>PoH는 이 문제에 대한 솔라나의 해결책입니다. 인간 시간척도나 "벽시계 시간" 대신, 반복적인 SHA-256 해시 함수를 특정 횟수만큼 실행하는 데 걸리는 시간을 기반으로 한 "시계"를 사용합니다.</p>
     
@@ -610,7 +607,7 @@
     <div class="highlight">
       <p><strong>자신의 차례 판단:</strong> 자신의 차례가 되면 검증자는 틱 계산을 통해 정확한 타이밍을 알 수 있고, 다른 검증자들과 동시에 블록을 생성하는 충돌을 방지할 수 있습니다.</p>
     </div>
-
+    
     <div class="diagram">
         <img src="images/pohcode.png" alt="Solana Leader">
     </div>
@@ -728,6 +725,20 @@
     </div>
   </div>
 
+
+
+  <div class="slide">
+    <h2>QUIC Protocol</h2>
+    <h3>UDP-Based High-Performance Networking</h3>
+    
+    <p>2022년 말 솔라나에서 리더 교체 트랜잭션 관리를 위해 적용한 UDP 기반의 네트워킹 프로토콜입니다. 구글에서 주도적으로 개발하다 현재는 IETF 표준화가 진행되고 있습니다.</p>
+    
+    <div class="highlight">
+      <p><strong>솔라나에서 QUIC 사용 이유:</strong> 솔라나의 빠른 블록 생성 간격(400ms)과 빈번한 리더 교체에서 모든 검증자가 새 리더와 빠른 연결을 맺어야 하므로, QUIC의 저지연 특성이 핵심적입니다. 기존 TCP로는 혼잡 제어와 순차적 패킷 전송으로 인한 병목이 발생하지만, QUIC은 이를 해결합니다.</p>
+    </div>
+  </div>
+
+
   <div class="slide">
     <h2>Transaction Lifetime: Complete Journey</h2>
     <h3>10 Critical Steps</h3>
@@ -753,18 +764,6 @@
       </div>
     </div>
   </div>
-
-  <div class="slide">
-    <h2>QUIC Protocol</h2>
-    <h3>UDP-Based High-Performance Networking</h3>
-    
-    <p>2022년 말 솔라나에서 리더 교체 트랜잭션 관리를 위해 적용한 UDP 기반의 네트워킹 프로토콜입니다. 구글에서 주도적으로 개발하다 현재는 IETF 표준화가 진행되고 있습니다.</p>
-    
-    <div class="highlight">
-      <p><strong>솔라나에서 QUIC 사용 이유:</strong> 솔라나의 빠른 블록 생성 간격(400ms)과 빈번한 리더 교체에서 모든 검증자가 새 리더와 빠른 연결을 맺어야 하므로, QUIC의 저지연 특성이 핵심적입니다. 기존 TCP로는 혼잡 제어와 순차적 패킷 전송으로 인한 병목이 발생하지만, QUIC은 이를 해결합니다.</p>
-    </div>
-  </div>
-
 
   <div class="slide">
     <h3>Transaction Lifecycle: Steps 1-5</h3>
@@ -891,7 +890,7 @@
           <li>낮은 수수료 시 며칠-몇 주 지연</li>
           <li>nonce 기반 중복 방지</li>
           <li>가십으로 전체 네트워크 전파</li>
-        </ul>
+    </ul>
       </div>
       <div class="comparison-card">
         <div class="comparison-title solana">🟣 솔라나 Gulf Stream</div>
@@ -1040,11 +1039,7 @@
     <h2>Banking Stage: Parallel Processing Engine</h2>
     <h3>The Heart of Solana's Performance</h3>
     
-    <div class="highlight">
-      <p><strong>Andre Cronje (Fantom Foundation CTO):</strong> "We consider SVM (Solana Virtual Machine) the best in terms of virtual machine technology currently."</p>
-    </div>
-    
-    <p><strong>Bank 정의:</strong> Bank는 특정 블록 시점에서의 상태 스냅샷입니다. 충분한 검증자가 투표한 후 블록이 최종화되면, bank의 계정 업데이트를 디스크에 플러시하여 영구적으로 만듭니다. 체인의 최종 상태는 모든 확정된 트랜잭션의 결과이며, 이 상태는 블록체인 히스토리에서 항상 결정론적으로 재생성할 수 있습니다.</p>
+    <p><strong>Bank 정의:</strong> Bank는 현재 슬롯의 월드-스테이트 를 담고있는 임시 메모리 공간입니다. 충분한 검증자가 투표한 후 블록이 최종화되면, bank의 계정 업데이트를 디스크에 플러시하여 영구적으로 만듭니다. 체인의 최종 상태는 모든 확정된 트랜잭션의 결과이며, 이 상태는 블록체인 히스토리에서 항상 결정론적으로 재생성할 수 있습니다.</p>
     
     <div class="stats-grid">
       <div class="stat-card">
@@ -1074,21 +1069,15 @@
           <li><strong>해결책:</strong> 충돌하는 트랜잭션은 다른 엔트리에 배치하여 순차 실행</li>
         </ul>
       </div>
-      <div class="feature-card">
-        <div class="feature-title">병렬 처리 요구사항</div>
-        <ul>
-          <li><strong>필수 조건:</strong> 각 트랜잭션이 읽고 쓸 모든 계정의 완전한 목록 포함</li>
-          <li><strong>개발자 부담:</strong> 계정 목록 사전 명시 필요</li>
-          <li><strong>검증자 이점:</strong> Race condition 방지 및 병렬 실행 가능</li>
-        </ul>
-      </div>
+      
     </div>
     
     <div class="flow-container">
       <div class="flow-step">
         <span class="step-number">1</span>
         <div class="step-title">엔트리로 그룹화</div>
-        <p>비충돌 트랜잭션 64개를 원장 "엔트리"로 패키징. 충돌하는 트랜잭션은 순차 실행, 비충돌은 병렬 실행.</p>
+        <p>confict가 없는 트랜잭션 64개를 "엔트리"로 패키징.</p>
+        <p>Tx에는 각 tx가 읽고 쓸 계정들의 목록이 들어있기 때문에 그룹화 용이함.</p>
       </div>
       <div class="flow-step">
         <span class="step-number">2</span>
@@ -1114,14 +1103,48 @@
   </div>
 
   <div class="slide">
-    <h2>Turbine: 네트워크 전파 시스템</h2>
-    <h3>BitTorrent에서 영감받은 효율적 블록 배포</h3>
-    
-    <p>Banking 단계에서 트랜잭션이 조직되어 PoH 스트림에 전송된 후, Bank가 업데이트되면 조직된 트랜잭션 엔트리들이 <strong>Turbine</strong> 단계로 진입합니다. Turbine은 리더가 자신의 블록을 네트워크 전체에 전파하는 과정입니다.</p>
+    <h2>Transaction Ordering Flexibility</h2>
+    <h3>Design Philosophy & Economic Implications</h3>
     
     <div class="highlight">
-      <p><strong>핵심 목표:</strong> 리더와 루트 노드의 외부 데이터 이탈 압력을 완화하고, 송신 및 재송신 시스템을 통해 부하를 분산하여 단일 노드의 부담을 줄입니다.</p>
+      <p><strong>핵심 설계 원칙:</strong> 솔라나 프로토콜은 트랜잭션 검증에 대해서는 매우 엄격한 규칙을 가지고 있지만, 리더가 블록 내에서 트랜잭션을 실행해야 하는 특정 순서는 강제하지 않습니다.</p>
     </div>
+    
+    <div class="comparison-container">
+      <div class="comparison-card">
+        <div class="comparison-title" style="color: #FF6B6B;">유연한 순서 결정</div>
+        <ul>
+          <li><strong>리더 재량:</strong> 블록 내 트랜잭션 순서 자유 결정</li>
+          <li><strong>MEV 기회:</strong> Maximum Extractable Value 최적화</li>
+          <li><strong>수수료 우선순위:</strong> 높은 수수료 트랜잭션 우선 처리</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">Jito & 블록 빌딩 마켓</div>
+        <ul>
+          <li><strong>Jito:</strong> 검증자와 거래자 간 MEV 수익 공유 플랫폼</li>
+          <li><strong>번들링:</strong> 복잡한 트랜잭션 그룹을 하나로 묶어 처리</li>
+          <li><strong>경매 시스템:</strong> 블록 공간에 대한 경쟁적 입찰</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="slide">
+    <h2>Turbine: 솔라나의 핵심 혁신</h2>
+    <h3>BitTorrent에서 영감받은 블록 전파 시스템</h3>
+    
+    <div class="highlight">
+      <p><strong>Mert Mumtaz (Helius CEO):</strong> "The most interesting part about Solana is not parallelization, the SVM, or Toly's tweets. It is something you probably haven't heard of: Turbine."</p>
+    </div>
+    
+    <p>Banking 단계에서 트랜잭션이 엔트리로 조직되어 타임스탬핑을 위해 Proof of History 스트림에 전송됩니다. 블록의 Bank가 업데이트되면, 조직된 엔트리들이 다음 단계인 <strong>Turbine</strong>을 위해 준비됩니다.</p>
+    
+    <p>Turbine은 리더가 자신의 블록을 네트워크의 나머지 부분에 전파하는 과정입니다. BitTorrent에서 영감을 받아 빠르고 효율적으로 설계되어, 통신 오버헤드를 줄이고 리더가 전송해야 하는 데이터 양을 최소화합니다.</p>
     
     <div class="stats-grid">
       <div class="stat-card">
@@ -1144,241 +1167,164 @@
   </div>
 
   <div class="slide">
-    <h2>Shredding: 데이터 분할과 복구</h2>
-    <h3>소거 코딩으로 강화된 내결함성</h3>
+    <h2>Shredding Process: 데이터 분해와 복구</h2>
+    <h3>Forward Error Correction을 통한 내결함성</h3>
     
     <div class="diagram">
-      <img src="images/Turbine.png" alt="Shred Structure">
+      <img src="images/shred.png" alt="Shred Structure">
     </div>
     
-    <p>Turbine은 <strong>Shredding(슈레딩)</strong> 과정을 통해 트랜잭션 데이터를 <strong>Shreds(슈레드)</strong>라고 하는 작은 데이터 패킷으로 분해합니다.</p>
+    <p>Turbine은 트랜잭션 데이터를 <strong>"Shreds"</strong>로 분해하는 <strong>"Shredding"</strong> 과정을 통해 이를 달성합니다. Shreds는 최대 1280바이트의 작은 데이터 패킷으로, 비디오 스트림의 개별 프레임과 유사합니다. 재조립되면 이러한 Shreds를 통해 검증자들이 전체 블록을 재생할 수 있습니다.</p>
+    
+    <p>Shreds는 UDP를 사용하여 인터넷을 통해 검증자들 사이에서 전송되며, 패킷 손실이나 악의적인 패킷 삭제를 처리하기 위해 <strong>소거 코딩(Erasure Coding)</strong>을 활용합니다. 소거 코딩은 다항식 기반의 오류 검출 및 수정 방식으로 데이터 무결성을 보장합니다. 일부 Shreds가 손실되더라도 블록은 여전히 재구성될 수 있습니다.</p>
     
     <div class="feature-grid">
       <div class="feature-card">
-        <div class="feature-title">Shreds 특성</div>
+        <div class="feature-title">FEC 배치 (Forward Error Correction)</div>
         <ul>
-          <li><strong>크기:</strong> 최대 1,280바이트의 작은 데이터 패킷</li>
-          <li><strong>비유:</strong> 비디오 스트림의 개별 프레임과 유사</li>
-          <li><strong>전송:</strong> UDP를 통한 검증자 간 전송</li>
-          <li><strong>재조립:</strong> Shreds 재조립으로 전체 블록 재생성</li>
+          <li><strong>구성:</strong> 기본적으로 64개 Shreds (32개 데이터 + 32개 복구)</li>
+          <li><strong>복구 수준:</strong> 배치 내 최대 50% 패킷 손실/손상까지 복구 가능</li>
+          <li><strong>배치별 복구:</strong> 데이터 복구는 FEC 배치별로 이루어짐</li>
         </ul>
       </div>
       <div class="feature-card">
-        <div class="feature-title">소거 코딩 (Erasure Coding)</div>
+        <div class="feature-title">머클화 및 체인 연결</div>
         <ul>
-          <li><strong>목적:</strong> 패킷 손실과 악의적 패킷 삭제 처리</li>
-          <li><strong>방식:</strong> 다항식 기반 오류 검출 및 수정</li>
-          <li><strong>복구력:</strong> 배치 내 50% 손실까지 복구 가능</li>
-          <li><strong>보장:</strong> 데이터 무결성 유지</li>
+          <li><strong>배치 머클화:</strong> 각 64 Shreds 배치가 머클화됨</li>
+          <li><strong>리더 서명:</strong> 루트는 리더에 의해 서명되고 이전 배치에 연결</li>
+          <li><strong>검증 경로:</strong> 머클 루트 체인이 진위성과 무결성의 검증 가능한 경로 제공</li>
         </ul>
       </div>
     </div>
+    
+    <div class="highlight">
+      <p><strong>보안 보장:</strong> 이 과정은 네트워크 내의 어떤 노드에서든 Shreds를 안전하게 획득할 수 있도록 보장하며, 머클 루트의 체인은 진위와 무결성을 검증할 수 있게 합니다.</p>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Turbine Tree: 계층적 전파 아키텍처</h2>
+    <h3>Outbound Data Egress Pressure 완화</h3>
+
+    <div class="diagram">
+        <img src="images/turbine.png" alt="Shred Structure">
+    </div>
+    
+    <p>리더는 처음에 단일 루트 노드로 브로드캐스팅하며, 이 루트 노드가 Shreds를 모든 다른 검증자 노드에 전파합니다. <strong>이 루트 노드는 각 Shred마다 변경됩니다.</strong> 검증자들은 층(Layer)으로 조직되어 "Turbine Tree"를 형성합니다.</p>
+
+    <p> 실제 팬아웃 값 : 200 </p>
+    <p> 홉 수 : 2-3 </p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">계층적 배치 전략</div>
+        <ul>
+          <li><strong>상위층:</strong> 더 큰 지분을 가진 검증자들이 트리 상단에 배치</li>
+          <li><strong>하위층:</strong> 더 적은 지분을 가진 검증자들이 트리 하단에 배치</li>
+          <li><strong>최적화:</strong> 지분 기반 배치로 네트워크 신뢰성과 효율성 극대화</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">동적 보안 메커니즘</div>
+        <ul>
+          <li><strong>트리 회전:</strong> 보안상 이유로 각 새로운 Shreds 배치마다 트리 순서 회전</li>
+          <li><strong>루트 변경:</strong> 각 Shred마다 다른 루트 노드 사용</li>
+          <li><strong>분산 부하:</strong> 송신 및 재송신 시스템으로 부하 분산</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="highlight">
+      <p><strong>핵심 목표:</strong> 이러한 시스템의 주요 목표는 <strong>리더와 루트 노드의 outbound data egress pressure를 완화</strong>하는 것입니다. 송신 및 재송신 시스템을 활용함으로써, 부하는 리더와 재송신자들 사이에 분산되어 단일 노드에 가해지는 부담을 줄입니다.</p>
+    </div>
+  </div>
+
+
+  <div class="slide">
+    <h2>Transaction Validation Unit (TVU)</h2>
+    <h3>Block Validation & Consensus</h3>
+    
+    <div class="highlight">
+      <p><strong>Vitalik Buterin (Ethereum Co-Founder):</strong> "Some smart people tell me there is an earnest smart developer community in Solana… I hope the community gets its fair chance to thrive."</p>
+    </div>
+    
+    <p>검증자가 Turbine을 통해 리더로부터 새로운 블록을 받으면, 각 엔트리 내의 모든 트랜잭션을 검증해야 합니다. 이는 전체 블록을 재생하고, PoH 해시를 병렬로 검증하며, PoH가 지시하는 순서대로 트랜잭션을 재생성하고, 로컬 bank를 업데이트하는 과정을 포함합니다.</p>
+    
+    <div class="diagram">
+      <img src="images/tvu.png" alt="Transaction Validation Unit">
+    </div>
+    
+    <p>이 과정은 <strong>Transaction Validation Unit (TVU)</strong>에서 처리되며, 이는 리더의 Transaction Processing Unit (TPU)과 유사하게 shreds 처리와 블록 검증을 담당하는 핵심 로직 역할을 합니다.</p>
+  </div>
+
+  <div class="slide">
+    <h2>TVU Pipeline: 4단계 검증 과정</h2>
+    <h3>From Shreds to Validated Blocks</h3>
     
     <div class="flow-container">
       <div class="flow-step">
         <span class="step-number">1</span>
-        <div class="step-title">FEC 배치 구성</div>
-        <p>64개 Shreds를 Forward Error Correction 배치로 그룹화합니다.</p>
+        <div class="step-title">Shred Fetch Stage</div>
+        <p>Turbine을 통해 shreds를 수신하는 첫 번째 단계입니다. TPU의 Fetch Stage와 유사한 역할을 수행합니다.</p>
       </div>
       <div class="flow-step">
         <span class="step-number">2</span>
-        <div class="step-title">데이터/복구 분할</div>
-        <p>32개 데이터 Shreds + 32개 복구 Shreds로 구성하여 50% 내결함성 확보.</p>
+        <div class="step-title">Shred Verify Leader Signature Stage</div>
+        <p>받은 shreds가 리더로부터 온 것인지 확인하기 위해 리더의 서명을 겁증합니다.</p>
       </div>
       <div class="flow-step">
         <span class="step-number">3</span>
-        <div class="step-title">머클화 및 서명</div>
-        <p>각 64 Shreds 배치를 머클화하고, 루트를 리더가 서명하여 이전 배치에 연결.</p>
+        <div class="step-title">Retransmit Stage</div>
+        <p>Turbine Tree에서의 위치에 따라 적절한 하위 검증자들에게 shreds를 전달합니다.</p>
       </div>
       <div class="flow-step">
         <span class="step-number">4</span>
-        <div class="step-title">안전한 획득</div>
-        <p>머클 루트 체인을 통해 네트워크 어떤 노드에서든 Shreds의 진위와 무결성 검증.</p>
+        <div class="step-title">Replay Stage</div>
+        <p>각 트랜잭션을 정확하고 올바른 순서로 재생성하면서 로컬 버전의 bank를 업데이트합니다.</p>
       </div>
     </div>
+    
+     
   </div>
 
   <div class="slide">
-    <h2>Turbine Tree: 계층적 전파 구조</h2>
-    <h3>효율적 부하 분산 시스템</h3>
+    <h2>Replay Stage: 핵심 검증 엔진</h2>
+    <h3>Single-threaded Orchestration</h3>
     
-    <p>리더는 단일 루트 노드에서 데이터를 브로드캐스팅하며, 이 루트 노드가 Shreds를 모든 다른 검증자 노드에 전파합니다. 검증자들은 <strong>층(Layer)</strong>으로 조직되어 Turbine Tree를 형성합니다.</p>
+    <p>Replay Stage는 TPU의 Banking Stage와 유사하며, TVU에서 가장 중요한 단계로 블록 검증 단계라고 직접적으로 설명할 수 있습니다. Replay는 투표, PoH 시계 재설정, bank 전환을 포함한 많은 핵심 작업을 조율하는 <strong>단일 스레드 프로세스 루프</strong>입니다.</p>
     
-    <div class="comparison-container">
-      <div class="comparison-card">
-        <div class="comparison-title" style="color: #9945FF;">🟣 계층 구조</div>
-        <ul>
-          <li><strong>상위층:</strong> 지분이 많은 검증자들이 트리 상단 배치</li>
-          <li><strong>하위층:</strong> 지분이 적은 검증자들이 트리 하단 배치</li>
-          <li><strong>홉 수:</strong> 활성 검증자 수에 따라 일반적으로 2-3홉</li>
-          <li><strong>팬아웃:</strong> 실제 200 (도식에서는 3으로 단순화)</li>
-        </ul>
+    <div class="diagram">
+        <img src="images/replayStage.png" alt="Transaction Validation Unit">
       </div>
-      <div class="comparison-card">
-        <div class="comparison-title" style="color: #FF6B6B;">🔴 동적 보안</div>
-        <ul>
-          <li><strong>순서 회전:</strong> 각 새로운 Shreds 배치마다 트리 순서 변경</li>
-          <li><strong>루트 변경:</strong> 각 Shreds마다 루트 노드 변경</li>
-          <li><strong>분산 처리:</strong> 송신/재송신으로 부하 분산</li>
-          <li><strong>압력 완화:</strong> 리더의 외부 데이터 이탈 압력 해소</li>
-        </ul>
-      </div>
-    </div>
-    
-    <div class="flow-container">
-      <div class="flow-step">
-        <span class="step-number">1</span>
-        <div class="step-title">루트 브로드캐스팅</div>
-        <p>리더가 단일 루트 노드에서 데이터를 브로드캐스팅하여 전파 과정을 시작합니다.</p>
-      </div>
-      <div class="flow-step">
-        <span class="step-number">2</span>
-        <div class="step-title">계층적 전파</div>
-        <p>루트 노드가 Shreds를 모든 검증자 노드에 지분 기반 계층 구조를 통해 전파합니다.</p>
-      </div>
-      <div class="flow-step">
-        <span class="step-number">3</span>
-        <div class="step-title">효율적 확산</div>
-        <p>팬아웃 200으로 O(log N) 복잡도로 전체 네트워크에 빠르게 도달합니다.</p>
-      </div>
-    </div>
-    
-    <div class="highlight">
-      <p><strong>시스템 효과:</strong> 송신 및 재송신 시스템을 활용하여 부하를 리더와 재송신자들 사이에 분산시키고, 단일 노드에 가해지는 부담을 크게 줄여 솔라나의 고속 블록 전파를 실현합니다.</p>
-    </div>
-  </div>
 
-  <div class="slide">
-    <h2>Network Architecture & Timing</h2>
-    <h3>Precise Coordination at Scale</h3>
     
-    <p>솔라나는 대부분의 블록체인과 달리 연속적인 블록 생성 방식을 사용합니다. 할당된 시간 슬롯 동안 실시간으로 블록을 조립하고 스트리밍하여 높은 처리량을 달성합니다.</p>
-    
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-number">400ms</span>
-        <div class="stat-label">각 슬롯 지속 시간</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">4개</span>
-        <div class="stat-label">연속 할당 슬롯 수</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">1.6초</span>
-        <div class="stat-label">총 리더 시간</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">2슬롯</span>
-        <div class="stat-label">리더 준비 시간</div>
-      </div>
-    </div>
-    
-    <div class="flow-container">
-      <div class="flow-step">
-        <span class="step-number">1</span>
-        <div class="step-title">에포크마다 리더 스케줄 계산</div>
-        <p>매 에포크(약 2-3일)마다 네트워크 스냅샷을 기준으로 지분 증명(PoS) 가중 라운드로빈 방식으로 리더 순서표가 계산됩니다. 모든 노드는 "슬롯 → 리더" 매핑을 미리 알고 있습니다.</p>
-      </div>
-      <div class="flow-step">
-        <span class="step-number">2</span>
-        <div class="step-title">리더 준비 단계</div>
-        <p>리더가 되기 2슬롯 전에 트랜잭션 전달을 중단하고 준비합니다. 이 기간 동안 기가바이트/초 수준의 트래픽 폭증이 발생하며, 네트워크 전체가 곧 리더가 될 노드에게 패킷을 집중 전송합니다.</p>
-      </div>
-      <div class="flow-step">
-        <span class="step-number">3</span>
-        <div class="step-title">연속적 블록 생성</div>
-        <p>할당된 4개 슬롯(1.6초) 동안 연속으로 블록을 생성합니다. 대부분의 블록체인과 달리 블록을 모두 조립한 뒤 전파하는 것이 아닌, 실시간으로 조립 및 스트리밍합니다.</p>
-      </div>
-    </div>
-    
-    <div class="highlight">
-      <p><strong>사전 예측의 장점:</strong> 트랜잭션은 "미래 리더"에게 바로 전달되므로, 줄 서기 지연이 크게 줄어들고 처리량(TPS)이 높아집니다. 이는 Gulfstream의 핵심 메커니즘입니다.</p>
-    </div>
-  </div>
+         <div class="highlight">
+       <p><strong>핵심 기능:</strong> Replay Stage는 검증자를 리더 모드로 전환하고 블록 생산을 시작하는 책임을 가집니다. 이를 통해 솔라나의 연속적인 블록 생산 사이클이 유지됩니다.</p>
+     </div>
+   </div>
 
-  <div class="slide">
-    <h2>Economic Model & Transaction Fees</h2>
-    <h3>Sustainable and Efficient Fee Structure</h3>
-    
-    <p>솔라나는 매우 낮은 수수료와 예측 가능한 비용 구조를 제공합니다. SOL의 가장 작은 단위를 "램포트(lamport)"라고 하며, 이는 SOL의 10억분의 1에 해당합니다.</p>
-    
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-title">기본 수수료 (Base Fee)</div>
-        <p>트랜잭션의 복잡성과 관계없이 서명당 부과되는 고정 비용입니다. 보통 서명당 5,000 램포트로 설정되어 예측 가능한 비용 구조를 제공합니다.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-title">우선순위 수수료</div>
-        <p>기술적으로는 선택 사항이지만, 네트워크 수요가 높을 때 블록에 포함될 가능성을 높이기 위해 사용됩니다. 컴퓨팅 유닛 가격 × 컴퓨팅 유닛 한도로 계산됩니다.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-title">로컬 수수료 시장</div>
-        <p>특정 스마트 컨트랙트에 대한 수요가 전체 네트워크의 수수료에 영향을 주지 않도록 하는 메커니즘입니다. 이는 네트워크 전체의 안정성을 보장합니다.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-title">검증자 보상</div>
-        <p>리더가 수집한 수수료(MEV) + 인플레이션 보상을 받습니다. 리더 역할을 제대로 수행하지 못하면 보상을 잃게 되므로 정직한 행동을 유도합니다.</p>
-      </div>
-    </div>
-    
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-number">$0.00025</span>
-        <div class="stat-label">평균 트랜잭션 수수료</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">5,000</span>
-        <div class="stat-label">서명당 기본 수수료 (램포트)</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">1분</span>
-        <div class="stat-label">Recent Blockhash 유효 시간</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">150</span>
-        <div class="stat-label">유효 슬롯 수</div>
-      </div>
-    </div>
-    
-    <div class="highlight" style="text-align: center; font-family: 'Courier New', monospace;">
-      총 수수료 = 우선순위 수수료 + 기본 수수료<br>
-      <small>(우선순위 수수료 = 컴퓨팅 유닛 가격 × 컴퓨팅 유닛 한도)</small>
-    </div>
-  </div>
-
-  <div class="slide">
+   <div class="slide">
     <h2>Security & Consensus Mechanisms</h2>
     <h3>Tower BFT + Proof of History</h3>
+
+    <p>솔라나의 Tower BFT는 <strong>일관성보다 생존성(liveness)을 선호하는</strong> PBFT의 맞춤형 구현입니다. Tower BFT는 합의 전에 시계 역할을 하는 솔라나의 PoH를 활용하여 메시징 오버헤드와 지연 시간을 줄입니다.</p>
+     
+     <div class="highlight">
+       <p><strong>핵심 혁신:</strong> "솔라나는 PBFT의 파생 구현을 사용하지만 하나의 근본적인 차이점이 있습니다. Proof of History(PoH)가 합의 전에 글로벌 시간 소스를 제공합니다. 우리의 PBFT 구현은 PoH를 네트워크 시계로 사용하며, PBFT에서 복제본이 사용하는 지수적으로 증가하는 타임아웃이 PoH 자체에서 계산되고 강제될 수 있습니다."</p>
+     </div>
     
     <p>솔라나는 PBFT(Practical Byzantine Fault Tolerance) 기반의 Tower BFT 합의 메커니즘과 PoH를 결합하여 높은 보안성과 효율성을 동시에 달성합니다.</p>
-    
+
+
+    <p>poh가 어떻게 도와줄까?</p>
+    <p>1. pbft보다 나은점 서로 시간증명위한 메시지 교환 필요 없다.... 이더리움 또한 필요 없는데? </p>
+    <p>2. 초고빈도 블록에서도 시간/순서 증명 받을 수 있어 vote를 줄일 수 있다.</p>
+
     <div class="diagram">
       <img src="images/PBFT.png" alt="PBFT vs Solana Consensus">
     </div>
     
-    <div class="comparison-container">
-      <div class="comparison-card">
-        <div class="comparison-title" style="color: #FF6B6B;">🔴 기존 PBFT</div>
-        <ul>
-          <li>여러 단계의 투표 (Prepare, Pre-commit, Commit)</li>
-          <li>시간 증명을 위한 복잡한 메시지 교환</li>
-          <li>높은 통신 오버헤드</li>
-          <li>확장성 제한 (참여자 수에 따라 성능 저하)</li>
-          <li>합의 완결성까지 긴 시간 소요</li>
-        </ul>
-      </div>
-      <div class="comparison-card">
-        <div class="comparison-title solana">🟣 Tower BFT + PoH</div>
-        <ul>
-          <li>PoH로 시간 증명 과정 생략</li>
-          <li>최소화된 노드 간 통신</li>
-          <li>슬롯 기반 투표로 효율성 극대화</li>
-          <li>확장 가능한 합의 메커니즘</li>
-          <li>빠른 최종성 달성 (수초 내)</li>
-        </ul>
-      </div>
-    </div>
-    
+ 
     <div class="flow-container">
       <div class="flow-step">
         <span class="step-number">1</span>
@@ -1387,65 +1333,292 @@
       </div>
       <div class="flow-step">
         <span class="step-number">2</span>
-        <div class="step-title">슬롯 기반 투표</div>
-        <p>검증자들은 개별 트랜잭션이 아닌 슬롯 단위로 투표합니다. "이 슬롯은 유효하다"라고 투표하여 효율성을 높입니다.</p>
-      </div>
-      <div class="flow-step">
-        <span class="step-number">3</span>
         <div class="step-title">포크 확률 최소화</div>
         <p>슬롯마다 단 하나의 리더만 블록을 제안할 수 있으며, 전 노드가 PoH로 시간 동기화하여 동일 높이에서 서로 다른 상태가 존재할 가능성을 낮춥니다.</p>
       </div>
     </div>
-  </div>
+   </div>
 
-  <div class="slide">
-    <h2>Real-world Performance & Ecosystem</h2>
-    <h3>Production-Ready Blockchain Infrastructure</h3>
-    
-    <p>솔라나는 이론적 성능뿐만 아니라 실제 운영 환경에서도 탁월한 성능을 보여주며, 다양한 분야에서 활발히 사용되고 있습니다.</p>
-    
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-number">1,800+</span>
-        <div class="stat-label">검증자 노드 수</div>
+
+
+
+       <div class="slide">
+      <h2>Lockout Mechanism: Progressive Commitment</h2>
+      <h3>Exponential Doubling & Slashing-Backed Security</h3>
+      
+      <p>검증자가 슬롯 s에 투표할 때, <strong>lockout 카운터 L(s)</strong>를 부착합니다. 이 메커니즘은 검증자가 특정 포크에 대한 커밋을 점진적으로 강화하도록 설계되었습니다.</p>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-title">Lockout 규칙</div>
+          <ul>
+            <li><strong>초기 lockout:</strong> L(s) = 1로 시작</li>
+            <li><strong>후손 투표 시:</strong> 동일 검증자가 슬롯 s+k(후손)에 투표하면 모든 조상의 lockout이 이배화: L ← 2L</li>
+            <li><strong>투표 금지:</strong> lockout이 만료되지 않은 슬롯과 충돌하는 포크에는 투표 불가</li>
+            <li><strong>만료 조건:</strong> L(s) 추가 슬롯이 지나면 lockout 만료</li>
+          </ul>
+        </div>
       </div>
-      <div class="stat-card">
-        <span class="stat-number">400M+</span>
-        <div class="stat-label">일일 트랜잭션 수</div>
+      
+
+      
+      <p>이 메커니즘을 통해 동일한 포크에서 여러 번 연속 투표한 후에는 이전 슬롯들이 매우 높은 lockout을 축적하게 되어 사실상 최종화됩니다. 검증자가 이러한 높은 lockout을 가진 슬롯을 롤백하려면 자신의 활성 lockout을 위반해야 하므로 슬래싱이 발생합니다.</p>
+      
+      <p>실제 lockout이 어떻게 진행되는지 구체적인 예시를 통해 살펴보겠습니다. 검증자가 연속적으로 같은 포크에 투표할 때마다 이전 투표들의 lockout이 2배로 증가합니다.</p>
+      
+      <div class="comparison-container">
+        <div class="comparison-card">
+          <div class="comparison-title" style="color: #9945FF;">🟣 투표 진행 과정</div>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr style="background-color: #f0f0f0; border: 1px solid #ddd;">
+              <th style="padding: 8px; border: 1px solid #ddd;">투표 슬롯</th>
+              <th style="padding: 8px; border: 1px solid #ddd;">투표 후 Lockout</th>
+              <th style="padding: 8px; border: 1px solid #ddd;">만료 시점 (추가 슬롯)</th>
+            </tr>
+            <tr style="border: 1px solid #ddd;">
+              <td style="padding: 8px; border: 1px solid #ddd;">100</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">1</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">101에서 만료</td>
+            </tr>
+            <tr style="border: 1px solid #ddd;">
+              <td style="padding: 8px; border: 1px solid #ddd;">101</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">2</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">103까지 유효</td>
+            </tr>
+            <tr style="border: 1px solid #ddd;">
+              <td style="padding: 8px; border: 1px solid #ddd;">102</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">4</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">106까지 유효</td>
+            </tr>
+            <tr style="border: 1px solid #ddd;">
+              <td style="padding: 8px; border: 1px solid #ddd;">103</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">8</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">111까지 유효</td>
+            </tr>
+            <tr style="border: 1px solid #ddd;">
+              <td style="padding: 8px; border: 1px solid #ddd;">104</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">16</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">120까지 유효</td>
+            </tr>
+          </table>
+        </div>
       </div>
-      <div class="stat-card">
-        <span class="stat-number">99.9%</span>
-        <div class="stat-label">네트워크 가동률</div>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-title">기하급수적 증가</div>
+          <ul>
+            <li><strong>5번째 투표 후:</strong> 첫 번째 슬롯의 lockout = 16</li>
+            <li><strong>10번째 투표 후:</strong> 첫 번째 슬롯의 lockout = 512</li>
+            <li><strong>20번째 투표 후:</strong> 첫 번째 슬롯의 lockout = 524,288</li>
+            <li><strong>32번째 투표 후:</strong> 첫 번째 슬롯의 lockout = 2³² = 약 54년</li>
+          </ul>
+        </div>
+       
       </div>
-      <div class="stat-card">
-        <span class="stat-number">$40B+</span>
-        <div class="stat-label">총 스테이킹 가치</div>
+
+      <div class="feature-card">
+        <div class="feature-title">슬래싱 보장</div>
+        <ul>
+          <li><strong>커밋 강제:</strong> 검증자는 활성 lockout을 위반하면 슬래싱 당함</li>
+          <li><strong>이중 투표 방지:</strong> 충돌하는 포크에 동시 투표 불가능</li>
+          <li><strong>경제적 처벌:</strong> lockout 위반 시 지분 손실</li>
+          <li><strong>네트워크 보안:</strong> 악의적 행동에 대한 강력한 경제적 디센티브</li>
+        </ul>
+      </div>
+      
+      <div class="highlight">
+        <p><strong>핵심 인사이트:</strong> 이 exponential doubling 메커니즘은 검증자들이 한 번 특정 포크에 커밋하면 계속해서 같은 방향으로 투표하도록 강력한 경제적 인센티브를 제공합니다.</p>
       </div>
     </div>
-    
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-title">🏦 DeFi Ecosystem</div>
-        <p>Serum, Raydium, Orca 등 주요 DEX들이 솔라나의 높은 처리량과 낮은 수수료를 활용하여 사용자 친화적인 거래 경험을 제공합니다.</p>
+
+    <div class="slide">
+        <h2>Fork Choice: Heaviest Lockout Weight</h2>
+      
+        <p>Solana가 여러 블록 포크 중 <strong>가장 안전</strong>한 체인을 선택하는 방식</p>
+      
+        <ul>
+          <li><em>Lockout</em>: 투표가 되돌릴 수 없는 기간(슬롯이 증가할수록 2× 지수적으로 늘어남)</li>
+          <li><em>Weight</em>: 남은 Lockout 길이 × 해당 투표의 스테이크</li>
+          <li>포크별 모든 투표의 Weight를 누적 → <strong>가장 무거운(Heaviest)</strong> 포크 승리</li>
+          <li>검증인은 그 포크에 새 블록을 추가하고 투표</li>
+        </ul>
+      
+        <h3>안전성이 확보되는 이유</h3>
+        <ul>
+          <li>스테이크와 시간 둘 다 묶여 있어 롤백 비용 급증</li>
+          <li>악의적 포크가 추월하려면 동일 Weight 필요 → 경제적 억지력</li>
+        </ul>
+      
+        <h3>공식</h3>
+        <p>\[Weight_{fork} = \sum_{i=1}^{n} Stake_i \times Remaining\;Lockout_i\]</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-title">🎨 NFT & Digital Art</div>
-        <p>Magic Eden, Solanart 등 NFT 마켓플레이스들이 빠른 거래와 낮은 비용으로 크리에이터와 컬렉터들에게 최적의 환경을 제공합니다.</p>
+      
+
+    <div class="slide">
+        <h2>Rooting &amp; Deterministic Finality</h2>
+        <h3>2/3 Stake + 32-Vote Lock-out Guarantee</h3>
+      
+        <p>
+          슬롯 <em>s</em>가 <strong>super-majority root</strong>(= Finalized)가 되기 위해서는 두 조건을
+          모두 충족해야 합니다. 이는 솔라나가 확률적이 아닌
+          <strong>결정론적 최종성</strong>을 제공하는 핵심 메커니즘입니다.
+        </p>
+      
+        <!-- Rooting 조건 / Slashing 보안 -->
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-title">Rooting 조건</div>
+            <ul>
+              <li><strong>2/3 지분 투표:</strong> ≥ 66 % 지분이 슬롯 s 에 투표</li>
+              <li><strong>32-Vote Lock-out:</strong> s 위로 <u>연속 31 개</u> 후속 슬롯에 동일 지분이
+                  투표하여 s 의 <code>lockout = 32</code> 도달</li>
+              <li><strong>후손 슬롯 투표:</strong> 위 31 개 슬롯 역시 ≥ 2/3 투표</li>
+              <li><strong>롤백 불가:</strong> 이후 s 를 롤백하려면 1/3 초과 지분이
+                  고의로 lock-out 위반(= 슬래싱) 필요</li>
+            </ul>
+          </div>
+      
+          <div class="feature-card">
+            <div class="feature-title">슬래싱 기반 보안</div>
+            <ul>
+              <li><strong>경제적 처벌:</strong> lock-out 위반 시 스테이크 슬래싱</li>
+              <li><strong>수학적 보장:</strong> 2/3 초과 지분이 동시에 슬래싱될
+                  확률은 경제적으로 불가능</li>
+              <li><strong>결정론적 최종성:</strong> 조건 충족 즉시 네트워크 전체에서
+                  불가역으로 고정</li>
+            </ul>
+          </div>
+        </div>
+      
+        <!-- 단계별 흐름 -->
+        <div class="flow-container">
+          <div class="flow-step">
+            <span class="step-number">1</span>
+            <div class="step-title">초기 투표 (Confirmed)</div>
+            <p>슬롯 s 가 네트워크의 ≥ 66 % 지분으로부터 첫 투표를 받아
+               <strong>Confirmed</strong> 상태가 됩니다.</p>
+          </div>
+      
+          <div class="flow-step">
+            <span class="step-number">2</span>
+            <div class="step-title">31 개 후속 슬롯 투표</div>
+            <p>동일한 검증자들이 s 의 후손 31 슬롯에 연속 투표해
+               lock-out 을 32 까지 더블링합니다.</p>
+          </div>
+      
+          <div class="flow-step">
+            <span class="step-number">3</span>
+            <div class="step-title">Super-majority Root 검증</div>
+            <p>네트워크가 두 조건(2/3 투표 + 32-vote lock-out) 충족을 확인합니다.</p>
+          </div>
+      
+          <div class="flow-step">
+            <span class="step-number">4</span>
+            <div class="step-title">Finalized 선언</div>
+            <p>조건이 만족되면 슬롯 s 가 <strong>Finalized</strong> 로 선언되며,
+               이후 롤백은 경제적으로 불가능합니다.</p>
+          </div>
+        </div>
+      
+        <!-- 통계 카드 -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">≥ 2/3</span>
+            <div class="stat-label">필요 지분 비율</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">32</span>
+            <div class="stat-label">필요 Lock-out 깊이</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">32&nbsp;슬롯</span>
+            <div class="stat-label">평균 최종화 슬롯 수</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">≈ 13&nbsp;초</span>
+            <div class="stat-label">평균 최종화 시간</div>
+          </div>
+        </div>
+      
+        <!-- 비교 카드 -->
+        <div class="comparison-container">
+          <div class="comparison-card">
+            <div class="comparison-title" style="color:#FF6B6B;">🔴 확률적 최종성 (PoW)</div>
+            <ul>
+              <li>시간이 지날수록 롤백 확률 감소</li>
+              <li>통계적 확률 의존</li>
+              <li>명확한 최종 지점 없음</li>
+              <li>긴 확인 시간 필요</li>
+            </ul>
+          </div>
+          <div class="comparison-card">
+            <div class="comparison-title" style="color:#9945FF;">🟣 결정론적 최종성 (Solana)</div>
+            <ul>
+              <li>2/3 투표 + 32-vote lock-out 충족 시 확정</li>
+              <li>슬래싱 기반 경제적 보장</li>
+              <li>수학적으로 롤백 불가</li>
+              <li>평균 13 초 내 확정적 최종성</li>
+            </ul>
+          </div>
+        </div>
+      
       </div>
-      <div class="feature-card">
-        <div class="feature-title">🎮 GameFi & Metaverse</div>
-        <p>Star Atlas, Stepn 등 게임들이 솔라나의 실시간 성능을 활용하여 블록체인 게임의 새로운 가능성을 보여줍니다.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-title">💳 Payments & Web3</div>
-        <p>Phantom, Solflare 등 지갑들과 결제 인프라가 일상적인 Web3 사용을 가능하게 합니다.</p>
-      </div>
-    </div>
-    
-    <div class="highlight">
-      <p><strong>기업 도입 사례:</strong> Visa는 솔라나에서 USDC 결제 테스트를 성공적으로 완료했으며, Reddit은 아바타 NFT를 솔라나에서 발행했습니다. 이는 솔라나가 엔터프라이즈급 성능과 안정성을 갖추었음을 보여줍니다.</p>
-    </div>
-  </div>
+ 
+
+
+   <div class="slide">
+     <h2>Transaction States & Finality</h2>
+     <h3>From Processed to Finalized</h3>
+     
+     <p>솔라나에서 트랜잭션의 상태는 합의 과정에서의 현재 단계에 따라 달라집니다.</p>
+     
+     <div class="flow-container">
+       <div class="flow-step">
+         <span class="step-number">1</span>
+         <div class="step-title">Processed</div>
+         <p>트랜잭션이 블록에 포함되었습니다.</p>
+       </div>
+       <div class="flow-step">
+         <span class="step-number">2</span>
+         <div class="step-title">Confirmed</div>
+         <p>트랜잭션의 블록이 2/3 초다수에 의해 투표되었습니다.</p>
+       </div>
+       <div class="flow-step">
+         <span class="step-number">3</span>
+         <div class="step-title">Finalized</div>
+         <p>트랜잭션의 블록 위에 31개 이상의 블록이 구축되었습니다.</p>
+       </div>
+     </div>
+     
+     <div class="stats-grid">
+       <div class="stat-card">
+         <span class="stat-number">2/3</span>
+         <div class="stat-label">Confirmed를 위한 초다수 비율</div>
+       </div>
+       <div class="stat-card">
+         <span class="stat-number">31+</span>
+         <div class="stat-label">Finalized를 위한 블록 수</div>
+       </div>
+       <div class="stat-card">
+         <span class="stat-number">100%</span>
+         <div class="stat-label">Confirmed 블록의 Finalized 성공률</div>
+       </div>
+       <div class="stat-card">
+         <span class="stat-number">0</span>
+         <div class="stat-label">역사상 롤백된 Confirmed 블록 수</div>
+       </div>
+     </div>
+     
+     
+     <div class="highlight">
+       <p><strong>역사적 안정성:</strong> 현재까지 솔라나 역사상 confirmed된 블록이 최종화되지 않은 사례는 단 한 번도 없었습니다.</p>
+     </div>
+   </div>
+
+
+
+  
 
   <div class="slide">
     <h2>Solana: The Future of Web3 Infrastructure</h2>
