@@ -1,0 +1,9 @@
+{
+    "name": "Gold",
+    "description": "In-game currency used for upgrades and trading.",
+    "image": "ipfs://Qm.../gold.png",
+    "attributes": [
+      { "trait_type": "Tier", "value": "Common" },
+      { "trait_type": "Fungible", "value": true }
+    ]
+}
