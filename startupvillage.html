@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      body {
+          width: 1280px; 
+          height: 720px; 
+          overflow: hidden; 
+          font-family: 'Noto Sans KR', sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+      .slide {
+          width: 1280px;
+          height: 720px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: none;
+      }
+      .slide.active {
+          display: block;
+      }
+      .title {
+          font-family: 'Roboto', sans-serif;
+          font-weight: 700;
+      }
+      .geometric-pattern {
+          background-image: radial-gradient(#4CAF50 1px, transparent 1px), radial-gradient(#FF9800 1px, transparent 1px), radial-gradient(#9C27B0 1px, transparent 1px);
+          background-size: 20px 20px;
+          background-position: 0 0, 10px 10px, 5px 5px;
+          opacity: 0.1;
+      }
+      .navigation {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          z-index: 1000;
+          display: flex;
+          gap: 10px;
+      }
+      .nav-btn {
+          background: #4CAF50;
+          color: white;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background 0.3s ease;
+          font-size: 14px;
+      }
+      .nav-btn:hover:not(:disabled) {
+          background: #45a049;
+      }
+      .nav-btn:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+      }
+      .slide-counter {
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          z-index: 1000;
+          background: rgba(0,0,0,0.7);
+          color: white;
+          padding: 8px 12px;
+          border-radius: 5px;
+          font-size: 14px;
+      }
+  </style>
+</head>
+<body>
+
+<!-- Slide 1: Title Slide -->
+<div class="slide active bg-gray-100" id="slide-1">
+  <div class="absolute inset-0">
+      <img alt="Modern urban street scene" class="w-full h-full object-cover" src="https://picture-search.skywork.ai/aippt/image/sheet/389755423c29291d0c8d17110ea6108b.jpg">
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent"></div>
+      <div class="absolute inset-0 geometric-pattern"></div>
+  </div>
+  <div class="absolute inset-0 flex flex-col justify-center items-start p-16">
+      <div class="flex space-x-6 mb-6">
+          <i class="fas fa-code text-4xl text-green-500"></i>
+          <i class="fas fa-project-diagram text-4xl text-orange-500"></i>
+          <i class="fas fa-cubes text-4xl text-purple-600"></i>
+          <i class="fas fa-network-wired text-4xl text-blue-500"></i>
+      </div>
+      <h1 class="title text-6xl text-white mb-4 leading-tight">스타트업 빌리지 서울<br>빌더 가이드</h1>
+      <p class="text-2xl text-gray-200 mb-8">리소스 및 등록 안내</p>
+      <div class="w-24 h-1 bg-gradient-to-r from-green-500 via-orange-500 to-purple-600 mb-8"></div>
+      <div class="flex justify-between items-end w-full">
+          <div>
+              <p class="text-xl text-gray-300"><i class="far fa-calendar-alt mr-2"></i>2025-09-14</p>
+          </div>
+          <div class="flex items-center">
+              <div class="h-10 w-1 bg-green-500 mr-4"></div>
+              <div>
+                  <p class="text-right text-lg text-gray-300">오호오, 이태원</p>
+                  <p class="text-right text-sm text-gray-400">梨泰院 Ohooo, Itaewon</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Slide 2: Location Information -->
+<div class="slide bg-gray-100" id="slide-2">
+  <div class="absolute inset-0 geometric-pattern"></div>
+  <div class="absolute top-0 left-0 w-full bg-white shadow-md py-4 px-12">
+      <h1 class="title text-3xl text-gray-800">장소 안내</h1>
+  </div>
+  <div class="absolute inset-0 mt-16 p-12 flex">
+      <div class="w-1/2 pr-8">
+          <div class="mb-8">
+              <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-map-marker-alt text-green-500 mr-3"></i>이태원 오호오
+              </h2>
+              <p class="text-gray-700 mb-4">스타트업 빌리지 서울은 2025년 9월 14일(일)부터 20일(토)까지 이태원 Ohooo에서 개최됩니다.</p>
+              <div class="bg-white rounded-lg shadow-md p-5 mt-6">
+                  <h3 class="text-xl font-bold text-gray-800 mb-3">이벤트 일정</h3>
+                  <div class="flex items-center mb-2">
+                      <i class="far fa-calendar-alt text-orange-500 mr-3"></i>
+                      <span class="text-gray-700">2025년 9월 14일(일) ~ 20일(토)</span>
+                  </div>
+                  <div class="flex items-center">
+                      <i class="far fa-clock text-purple-600 mr-3"></i>
+                      <span class="text-gray-700">오전 9시 ~ 오후 6시</span>
+                  </div>
+              </div>
+          </div>
+          <div>
+              <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-bed text-orange-500 mr-3"></i>숙박 정보
+              </h2>
+              <div class="bg-white p-4 rounded-lg border-l-4 border-green-500 mb-4">
+                  <div class="flex items-center mb-2">
+                      <i class="fas fa-bed text-green-600 mr-2"></i>
+                      <span class="font-medium">Queen Size</span>
+                      <span class="ml-auto bg-green-100 text-green-800 text-xs px-2 py-1 rounded">1개</span>
+                  </div>
+                  <div class="flex items-center">
+                      <i class="fas fa-bed text-blue-600 mr-2"></i>
+                      <span class="font-medium">Super Single</span>
+                      <span class="ml-auto bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">2개</span>
+                  </div>
+              </div>
+              <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                  <div class="flex items-center">
+                      <i class="fas fa-shower text-blue-600 mr-2"></i>
+                      <span class="font-medium">샤워실</span>
+                      <span class="ml-auto bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">2개</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="w-1/2 pl-8 flex flex-col">
+          <div class="bg-white rounded-lg shadow-md p-6 mb-6 flex-grow">
+              <h3 class="text-xl font-bold text-gray-800 mb-4">객실 배치</h3>
+              <div class="flex justify-center items-center h-32">
+                  <div class="flex space-x-4">
+                      <div class="bg-green-500 w-20 h-16 rounded flex items-center justify-center text-white text-sm font-bold">Queen</div>
+                      <div class="bg-blue-500 w-16 h-16 rounded flex items-center justify-center text-white text-xs font-bold">Super<br>Single</div>
+                      <div class="bg-blue-500 w-16 h-16 rounded flex items-center justify-center text-white text-xs font-bold">Super<br>Single</div>
+                  </div>
+              </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-4">
+              <img alt="숙박 시설 정보" class="w-full h-40 object-cover rounded" src="https://picture-search.skywork.ai/aippt/image/sheet/1a86d58c9e40f6763d702c67434e50c2.jpg">
+              <p class="text-xs text-gray-500 mt-2 text-center">이태원 Ohooo 숙박 시설 - 3개의-bed와 2개의-샤워실</p>
+          </div>
+      </div>
+  </div>
+  <div class="absolute bottom-0 left-0 w-full bg-gray-800 text-white py-2 px-12">
+      <span class="text-sm">Startup Village Seoul 2025</span>
+  </div>
+</div>
+
+<!-- Slide 3: Builder Resources -->
+<div class="slide bg-gray-100" id="slide-3">
+  <div class="absolute inset-0 geometric-pattern"></div>
+  <div class="absolute top-0 left-0 w-full bg-white shadow-md py-4 px-12">
+      <h1 class="title text-3xl text-gray-800">빌더 리소스</h1>
+  </div>
+  <div class="absolute inset-0 mt-16 p-12 flex flex-col">
+      <div class="mb-6">
+          <p class="text-gray-700 text-lg">스타트업 빌리지 서울에 참여하는 모든 빌더에게 다음과 같은 리소스가 제공됩니다.</p>
+      </div>
+      <div class="flex flex-1 space-x-8">
+          <div class="w-1/2">
+              <div class="bg-white rounded-lg shadow-md p-6 h-full">
+                  <div class="flex items-center mb-4">
+                      <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                          <i class="fas fa-server text-green-500 text-2xl"></i>
+                      </div>
+                      <h2 class="text-2xl font-bold text-gray-800">Nodit</h2>
+                  </div>
+                  <p class="text-gray-600 mb-4">솔라나 RPC 노드 제공업체로, 블록체인 인터랙션에 대한 고성능 인프라를 제공합니다.</p>
+                  <h3 class="text-xl font-semibold text-gray-700 mb-3">주요 서비스</h3>
+                  <ul class="space-y-3">
+                      <li class="text-gray-700 flex items-start">
+                          <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span><span class="font-medium">高速, 신뢰성 있는 RPC 노드</span> : 생산 작업 로드의 안정적인 실행을 보장합니다.</span>
+                      </li>
+                      <li class="text-gray-700 flex items-start">
+                          <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span><span class="font-medium">낮은 지연 접근</span> : 블록체인 인터랙션 속도를 최적화합니다.</span>
+                      </li>
+                      <li class="text-gray-700 flex items-start">
+                          <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span><span class="font-medium">없이의 확장성</span> : 프로젝트의 지속적인 성장 요구를 충족합니다.</span>
+                      </li>
+                      <li class="text-gray-700 flex items-start">
+                          <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span><span class="font-medium">독점 RPC 노드</span> : GIWA - Upbit의 메인넷을 위한 독점 RPC 노드 제공.</span>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="w-1/2">
+              <div class="bg-white rounded-lg shadow-md p-6 h-full">
+                  <div class="flex items-center mb-4">
+                      <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mr-4">
+                          <i class="fas fa-chart-line text-orange-500 text-2xl"></i>
+                      </div>
+                      <h2 class="text-2xl font-bold text-gray-800">Birdeye</h2>
+                  </div>
+                  <p class="text-gray-600 mb-4">온체인 데이터 서비스로, 70개 이상의 정확하고 최신의 데이터 소스와 개발자 친화적인 API를 제공합니다.</p>
+                  <h3 class="text-xl font-semibold text-gray-700 mb-3">주요 서비스</h3>
+                  <ul class="space-y-3">
+                      <li class="text-gray-700 flex items-start">
+                          <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span><span class="font-medium">실시간 데이터 인사이트</span> : 대코인 가격, 거래, 차트 및 시장 분석 등의 실시간 정보 제공.</span>
+                      </li>
+                      <li class="text-gray-700 flex items-start">
+                          <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span><span class="font-medium">넓은 데이터 소스</span> : 70개 이상의 정확하고 최신의 데이터 소스.</span>
+                      </li>
+                      <li class="text-gray-700 flex items-start">
+                          <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span><span class="font-medium">개발자 친화적인 API</span> : 개발자에게 데이터 통합 및 사용을 쉽게 도와줍니다.</span>
+                      </li>
+                      <li class="text-gray-700 flex items-start">
+                          <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                          <span><span class="font-medium">솔라나 체인 지원</span> : API를 통해 솔라나 체인의 대코인 가격 데이터 가져오기.</span>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="absolute bottom-0 left-0 w-full bg-gray-800 text-white py-2 px-12">
+      <span class="text-sm">Startup Village Seoul 2025</span>
+  </div>
+</div>
+
+<!-- Slide 4: Registration Method -->
+<div class="slide bg-gray-100" id="slide-4">
+  <div class="absolute inset-0 geometric-pattern"></div>
+  <div class="absolute top-0 left-0 w-full bg-white shadow-md py-4 px-12">
+      <h1 class="title text-3xl text-gray-800">빌더 등록 방법</h1>
+  </div>
+  <div class="absolute inset-0 mt-16 p-12 flex flex-col">
+      <div class="mb-8">
+          <p class="text-lg text-gray-700">스타트업 빌리지 서울에 빌더로 참가하기 위해서는 아래의 링크를 통해 등록해야 합니다. 등록은 2025년 9월 14일까지 가능합니다.</p>
+      </div>
+      <div class="bg-white rounded-lg shadow-lg p-6 mb-8 flex items-center">
+          <div class="w-3/4">
+              <h2 class="text-xl font-bold text-gray-800 mb-3">등록 링크</h2>
+              <a class="text-blue-600 hover:text-blue-800 text-lg break-all" href="https://docs.google.com/forms/d/e/1FAIpQLSd3vkzfRG2epjaMTh7lWw_krXmsNEjEDN1QHTnPD6m28_2jsw/viewform?usp=dialog" target="_blank">
+                  https://docs.google.com/forms/d/e/1FAIpQLSd3vkzfRG2epjaMTh7lWw_krXmsNEjEDN1QHTnPD6m28_2jsw/viewform?usp=dialog
+              </a>
+          </div>
+          <div class="w-1/4 flex justify-center">
+              <button class="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg flex items-center justify-center transition-all duration-300" onclick="copyToClipboard()">
+                  <i class="fas fa-copy mr-2"></i> 링크 복사
+              </button>
+          </div>
+      </div>
+      <div class="mb-8">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">등록 절차</h2>
+          <div class="flex justify-between items-center">
+              <div class="text-center w-1/5">
+                  <div class="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-3">
+                      <i class="fas fa-link text-2xl"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-700">링크 접속</h3>
+                  <p class="text-sm text-gray-600">구글 폼으로 이동</p>
+              </div>
+              <div class="w-8 h-0.5 bg-gray-300"></div>
+              <div class="text-center w-1/5">
+                  <div class="w-16 h-16 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center mx-auto mb-3">
+                      <i class="fas fa-user-edit text-2xl"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-700">정보 입력</h3>
+                  <p class="text-sm text-gray-600">빌더 정보 및 프로젝트 입력</p>
+              </div>
+              <div class="w-8 h-0.5 bg-gray-300"></div>
+              <div class="text-center w-1/5">
+                  <div class="w-16 h-16 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mx-auto mb-3">
+                      <i class="fas fa-paper-plane text-2xl"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-700">제출</h3>
+                  <p class="text-sm text-gray-600">등록 폼 제출</p>
+              </div>
+              <div class="w-8 h-0.5 bg-gray-300"></div>
+              <div class="text-center w-1/5">
+                  <div class="w-16 h-16 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-3">
+                      <i class="fas fa-envelope text-2xl"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-700">확인</h3>
+                  <p class="text-sm text-gray-600">확인 이메일 수신</p>
+              </div>
+          </div>
+      </div>
+      <div class="flex justify-between">
+          <div class="bg-white rounded-lg shadow-md p-5 w-[48%]">
+              <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <i class="fas fa-users text-orange-500 mr-2"></i> 등록 대상
+              </h3>
+              <ul class="list-disc list-inside text-gray-700">
+                  <li>솔라나 생태계를 이끌고 싶은 빌더</li>
+                  <li>솔라나에서 실질적인 결과를 얻고자 하는 기업가</li>
+              </ul>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-5 w-[48%]">
+              <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <i class="far fa-calendar-check text-purple-600 mr-2"></i> 등록 마감일
+              </h3>
+              <div class="flex items-center">
+                  <div class="text-2xl font-bold text-red-500 mr-3">2025-09-14</div>
+                  <div class="text-gray-700">
+                      <p>오전 9시 ~ 오후 6시</p>
+                      <p class="text-sm mt-1">등록은 이날까지 가능합니다.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="absolute bottom-0 left-0 w-full bg-gray-800 text-white py-2 px-12">
+      <span class="text-sm">Startup Village Seoul 2025</span>
+  </div>
+</div>
+
+<!-- Slide 5: Mini Hackathon -->
+<div class="slide bg-gray-100" id="slide-5">
+  <div class="absolute inset-0 geometric-pattern"></div>
+  <div class="absolute top-0 left-0 w-full bg-white shadow-md py-4 px-12">
+      <h1 class="title text-3xl text-gray-800">미니 해커톤</h1>
+  </div>
+  <div class="absolute inset-0 mt-16 p-12 flex flex-col">
+      <div class="mb-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+              <i class="fas fa-trophy text-orange-500 mr-3"></i>스타트업 빌리지 서울 미니 해커톤
+          </h2>
+          <p class="text-gray-700">스타트업 빌리지 서울은 참가자들을 위한 특별한 미니 해커톤 이벤트를 준비하고 있습니다. 아래의 일정과 규칙에 따라 참여하세요.</p>
+      </div>
+      <div class="flex items-center justify-center mb-10">
+          <div class="flex flex-col items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full"></div>
+              <p class="mt-2 text-gray-700 font-medium">등록 마감</p>
+              <p class="text-orange-500 font-bold">금요일 오후 1시</p>
+          </div>
+          <div class="h-1 bg-gray-300 flex-grow mx-8"></div>
+          <div class="flex flex-col items-center">
+              <div class="w-5 h-5 bg-orange-500 rounded-full"></div>
+              <p class="mt-2 text-gray-700 font-medium">피칭 시간</p>
+              <p class="text-orange-500 font-bold">오후 6시</p>
+          </div>
+      </div>
+      <div class="grid grid-cols-3 gap-6 flex-grow">
+          <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+              <div class="flex items-center mb-4">
+                  <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                      <i class="fas fa-microphone text-green-500 text-2xl"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800">피칭 규칙</h3>
+              </div>
+              <ul class="text-gray-700 space-y-2">
+                  <li class="flex items-start">
+                      <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                      <span>각 팀당 최대 6분의 피칭 시간</span>
+                  </li>
+                  <li class="flex items-start">
+                      <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                      <span>간단한 아이디어 설명부터 시작</span>
+                  </li>
+                  <li class="flex items-start">
+                      <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                      <span>기술적 도전사항 해결 방안</span>
+                  </li>
+              </ul>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500">
+              <div class="flex items-center mb-4">
+                  <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mr-4">
+                      <i class="fas fa-award text-orange-500 text-2xl"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800">평가 기준</h3>
+              </div>
+              <ul class="text-gray-700 space-y-2">
+                  <li class="flex items-start">
+                      <i class="fas fa-star text-orange-500 mt-1 mr-2"></i>
+                      <span>기술적 실행 가능성</span>
+                  </li>
+                  <li class="flex items-start">
+                      <i class="fas fa-star text-orange-500 mt-1 mr-2"></i>
+                      <span>마케팅 및 제품 전략</span>
+                  </li>
+                  <li class="flex items-start">
+                      <i class="fas fa-star text-orange-500 mt-1 mr-2"></i>
+                      <span>팀의 문제 해결 능력</span>
+                  </li>
+              </ul>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+              <div class="flex items-center mb-4">
+                  <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                      <i class="fas fa-clipboard-list text-purple-500 text-2xl"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800">등록 절차</h3>
+              </div>
+              <ul class="text-gray-700 space-y-2">
+                  <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-purple-500 mt-1 mr-2"></i>
+                      <span>오전 9시부터 등록 가능</span>
+                  </li>
+                  <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-purple-500 mt-1 mr-2"></i>
+                      <span>팀 이름 및 프로젝트 아이디어 제공</span>
+                  </li>
+                  <li class="flex items-start">
+                      <i class="fas fa-arrow-right text-purple-500 mt-1 mr-2"></i>
+                      <span>금요일 오후 1시까지 완료</span>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6 flex-grow">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">미니 해커톤 일정</h3>
+          <div class="flex justify-center items-center h-16">
+              <div class="flex items-center space-x-8">
+                  <div class="text-center">
+                      <div class="w-4 h-4 bg-purple-500 rounded-full mx-auto mb-1"></div>
+                      <p class="text-sm font-medium">오전 9시</p>
+                      <p class="text-xs text-gray-600">등록 시작</p>
+                  </div>
+                  <div class="h-0.5 w-16 bg-gray-300"></div>
+                  <div class="text-center">
+                      <div class="w-4 h-4 bg-red-500 rounded-full mx-auto mb-1"></div>
+                      <p class="text-sm font-medium">오후 1시</p>
+                      <p class="text-xs text-gray-600">등록 마감</p>
+                  </div>
+                  <div class="h-0.5 w-16 bg-gray-300"></div>
+                  <div class="text-center">
+                      <div class="w-4 h-4 bg-orange-500 rounded-full mx-auto mb-1"></div>
+                      <p class="text-sm font-medium">오후 6시</p>
+                      <p class="text-xs text-gray-600">피칭 시작</p>
+                  </div>
+                  <div class="h-0.5 w-16 bg-gray-300"></div>
+                  <div class="text-center">
+                      <div class="w-4 h-4 bg-green-500 rounded-full mx-auto mb-1"></div>
+                      <p class="text-sm font-medium">오후 8시</p>
+                      <p class="text-xs text-gray-600">마무리</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="absolute bottom-0 left-0 w-full bg-gray-800 text-white py-2 px-12">
+      <span class="text-sm">Startup Village Seoul 2025</span>
+  </div>
+</div>
+
+<!-- Navigation controls -->
+<div class="navigation">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← 이전</button>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">다음 →</button>
+</div>
+
+<!-- Slide counter -->
+<div class="slide-counter">
+    <span id="slideNumber">1</span> / 5
+</div>
+
+<script>
+let currentSlide = 1;
+const totalSlides = 5;
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    
+    if (n > totalSlides) currentSlide = 1;
+    if (n < 1) currentSlide = totalSlides;
+    
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[currentSlide - 1].classList.add('active');
+    
+    document.getElementById('slideNumber').textContent = currentSlide;
+    
+    // Update navigation buttons
+    document.getElementById('prevBtn').disabled = currentSlide === 1;
+    document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+}
+
+function changeSlide(n) {
+    currentSlide += n;
+    showSlide(currentSlide);
+}
+
+function copyToClipboard() {
+    const link = "https://docs.google.com/forms/d/e/1FAIpQLSd3vkzfRG2epjaMTh7lWw_krXmsNEjEDN1QHTnPD6m28_2jsw/viewform?usp=dialog";
+    navigator.clipboard.writeText(link).then(function() {
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check mr-2"></i> 복사됨!';
+        button.classList.add('bg-green-600');
+        
+        setTimeout(function() {
+            button.innerHTML = originalText;
+            button.classList.remove('bg-green-600');
+        }, 2000);
+    }).catch(function(err) {
+        console.error('링크 복사 실패: ', err);
+    });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') {
+        changeSlide(-1);
+    } else if (e.key === 'ArrowRight') {
+        changeSlide(1);
+    }
+});
+
+// Initialize
+showSlide(1);
+</script>
+
+</body>
+</html>
+          
