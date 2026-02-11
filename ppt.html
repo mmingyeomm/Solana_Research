@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solana: From Basics to Transaction Lifetime</title>
+  <title>Solana Bootcamp - The Camp: GROUND</title>
   <style>
     * {
       margin: 0;
@@ -17,10 +17,10 @@
       font-family: 'Helvetica Neue', Arial, sans-serif;
       line-height: 1.6;
       color: #333;
-      background-color: #f9f9f9;
+      background-color: #1a1025;
     }
     .slide {
-      background-color: white;
+      background-color: #faf9fc;
       min-height: 100vh;
       width: 100%;
       padding: 60px 80px;
@@ -35,26 +35,39 @@
       max-width: 1200px;
       width: 100%;
     }
+    .slide-title {
+      background: linear-gradient(135deg, #2d1b4e 0%, #1a1025 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .slide-title img {
+      width: auto;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 12px;
+    }
     h1 {
-      color: #1a73e8;
+      color: #9945FF;
       font-size: 3.5em;
       margin-bottom: 20px;
-      border-bottom: 3px solid #1a73e8;
+      border-bottom: 3px solid #9945FF;
       padding-bottom: 15px;
     }
     h2 {
-      color: #1a73e8;
+      color: #9945FF;
       font-size: 2.5em;
       margin-top: 20px;
       margin-bottom: 20px;
     }
     h3 {
-      color: #34a853;
+      color: #14F195;
       font-size: 1.8em;
       margin-top: 20px;
     }
     h4 {
-      color: #4285f4;
+      color: #00D1FF;
       font-size: 1.4em;
       margin-top: 15px;
     }
@@ -76,8 +89,8 @@
       margin-bottom: 8px;
     }
     .highlight {
-      background-color: #f8f9fa;
-      border-left: 4px solid #1a73e8;
+      background-color: rgba(153, 69, 255, 0.08);
+      border-left: 4px solid #9945FF;
       padding: 10px 15px;
       margin: 20px 0;
     }
@@ -111,8 +124,8 @@
       margin: 20px 0;
     }
     .stat-card {
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
+      background-color: rgba(153, 69, 255, 0.06);
+      border: 1px solid rgba(153, 69, 255, 0.2);
       border-radius: 6px;
       padding: 15px;
       text-align: center;
@@ -120,7 +133,7 @@
     .stat-number {
       font-size: 2.5em;
       font-weight: bold;
-      color: #1a73e8;
+      color: #9945FF;
       display: block;
     }
     .stat-label {
@@ -134,14 +147,14 @@
       margin: 20px 0;
     }
     .feature-card {
-      background-color: #f8f9fa;
-      border-left: 4px solid #34a853;
+      background-color: rgba(20, 241, 149, 0.06);
+      border-left: 4px solid #14F195;
       border-radius: 6px;
       padding: 20px;
     }
     .feature-title {
       font-weight: bold;
-      color: #34a853;
+      color: #14F195;
       margin-bottom: 10px;
     }
     .comparison-container {
@@ -151,8 +164,8 @@
       margin: 20px 0;
     }
     .comparison-card {
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
+      background-color: rgba(153, 69, 255, 0.04);
+      border: 1px solid rgba(153, 69, 255, 0.15);
       border-radius: 6px;
       padding: 20px;
     }
@@ -172,14 +185,14 @@
       margin: 20px 0;
     }
     .flow-step {
-      background-color: #f8f9fa;
-      border-left: 3px solid #1a73e8;
+      background-color: rgba(153, 69, 255, 0.06);
+      border-left: 3px solid #9945FF;
       padding: 15px;
       margin-bottom: 15px;
       border-radius: 6px;
     }
     .step-number {
-      background: #1a73e8;
+      background: linear-gradient(135deg, #9945FF 0%, #14F195 100%);
       color: white;
       width: 25px;
       height: 25px;
@@ -193,12 +206,47 @@
     }
     .step-title {
       font-weight: bold;
-      color: #1a73e8;
+      color: #9945FF;
       margin-bottom: 8px;
+    }
+
+    .code-block {
+      background-color: #ffffff;
+      color: #1a202c;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', 'Ubuntu Mono', 'Consolas', monospace;
+      font-size: 1.05em;
+      font-weight: 600;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.6;
+      tab-size: 4;
+      -moz-tab-size: 4;
+      -webkit-tab-size: 4;
+      word-wrap: break-word;
+      display: block;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      letter-spacing: 0.025em;
+    }
+    
+    .code-block code {
+      background: none;
+      padding: 0;
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      white-space: inherit;
     }
   </style>
 </head>
 <body>
+  <div class="slide slide-title">
+    <img src="images/bootcamplogo.png" alt="Solana Bootcamp - The Camp: GROUND">
+  </div>
+
   <div class="slide">
     <h1>SOLANA ARCHITECTURE</h1>
   </div>
@@ -220,28 +268,16 @@
     
    
     <h4>즉시 로컬 검증</h4>
-    <p>RPC 노드가 수신 즉시 다음을 검증:</p>
-    <ul>
-      <li>서명 유효성</li>
-      <li>nonce 순서</li>
-      <li>가스 한도</li>
-      <li><code>maxFeePerGas ≥ baseFee</code></li>
-    </ul>
-
+    <p>RPC 노드가 수신 즉시 다음을 tx 검증 후, EL로 전송</p>
     
-    
-    <div class="highlight">
-      <p><strong>중요:</strong> 검증 실패 시 바로 오류 반환되어 네트워크로 전파되지 않습니다.</p>
-    </div>
   </div>
 
   <div class="slide">
     <h2>3단계: 노드 내부 멤풀 편입</h2>
-    <h3>Local Mempool (Txpool) Insertion</h3>
+    <h3>Local Mempool Insertion</h3>
     
-   
+    <p>TX가 멤풀에 존재 </p>
     
-    <p> 아직 네트워크에 전파되지 않았고, 해당 노드의 로컬 mempool에만 존재하는 상태입니다.</p>
   </div>
 
   <div class="slide">
@@ -308,12 +344,6 @@
       </div>
     </div>
     
-    <h4>무결성 검증</h4>
-    <p>상태 루트, 영수증 루트, gasUsed 등이 페이로드 헤더의 일부입니다. 불일치 시 블록 무효화가 발생합니다.</p>
-    
-    <div class="highlight">
-      <p><strong>주요 병목:</strong> 복잡한 트랜잭션 실행으로 인한 처리 지연이 발생할 수 있습니다.</p>
-    </div>
   </div>
 
   <div class="slide">
@@ -404,11 +434,7 @@
       </div>
     </div>
     
-    <div class="highlight">
-      <p><strong>솔라나의 철학:</strong> 솔라나는 더 간단하고 직접적인 접근을 취합니다 — 글로벌 탈중앙화 애플리케이션을 위한 확장성이 뛰어난 개방형 인프라를 제공하는 초고속, 안전하고 검열 저항적인 레이어1 퍼블릭 체인을 제공합니다.</p>
-    </div>
-    
-    <p><strong>목표:</strong> 독창적인 PoH 합의 덕분에 업계 최고 성능을 자랑하는 솔라나는 세계 최초의 웹 레벨 탈중앙화 네트워크가 되는 길을 걷고 있습니다.</p>
+  
   </div>
 
   <div class="slide">
@@ -481,7 +507,7 @@
       <div class="flow-step">
         <span class="step-number">3</span>
         <div class="step-title">병렬 실행 & 상태 업데이트</div>
-        <p>런타임의 <em>Bank</em> 모듈에서 계정 락을 활용해 병렬로 트랜잭션을 실행, 수수료 징수·계정 상태 변경·루트 해시 계산을 마칩니다.</p>
+        <p>런타임에서 활용해 병렬로 트랜잭션을 실행, 수수료 징수·계정 상태 변경·루트 해시 계산을 마칩니다.</p>
       </div>
       <div class="flow-step">
         <span class="step-number">4</span>
@@ -538,29 +564,6 @@
       <img src="images/POH.png" alt="Solana PoH">
     </div>
     
-
-    <h3>The Leader Schedule Solution</h3>
-    <p>솔라나에서는 검증자 집합이 알려져 있으므로, 특정 시간에 한 명의 검증자만 블록을 제출하도록 네트워크를 구성할 수 있습니다. 각 블록은 "슬롯"이라는 시간 단위 동안 생성되며, 리더 스케줄의 각 슬롯에는 하나의 검증자가 할당됩니다.</p>
-    
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-title">슬롯 시스템</div>
-        <p>각 블록은 "슬롯" 시간 단위 동안 생성되며, 리더 스케줄에서 해당 슬롯에 할당된 검증자만이 블록을 제안할 수 있습니다.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-title">에포크 구조</div>
-        <p>슬롯은 432,000개씩 그룹화되어 "에포크"를 형성합니다. 현재 에포크의 리더 스케줄은 2 에포크 전 데이터로 결정되어 모든 검증자가 미리 알 수 있습니다.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-title">랜덤 선택</div>
-        <p>리더 스케줄은 스테이크 가중치에 따른 랜덤 선택으로 결정됩니다. 모든 검증자가 동일한 데이터와 알고리즘을 사용하여 독립적으로 계산할 수 있습니다.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-title">예측 불가능성</div>
-        <p>검증자들은 스테이크 가중치에 비례한 슬롯을 받지만, 어떤 슬롯을 받을지는 랜덤하여 예측할 수 없습니다.</p>
-      </div>
-    </div>
-
     <h3>The Clock Synchronization Problem</h3>
     <p>리더 스케줄이 설정되었지만 문제가 남아있습니다: 리더들이 순서를 벗어나 블록을 방출하는 것을 어떻게 방지할까요?</p>
     
@@ -662,45 +665,6 @@
 
     <p>세 명의 리더 A, B, C가 있고 리더 스케줄이 A - B - C라고 가정해 봅시다. A가 블록을 방출한 후 B의 차례인데, C가 "부정행위"를 시도하여 B의 차례 동안 자신의 블록을 방출하려고 한다면 어떻게 될까요?</p>
     
-    <h4>검열 시도의 메커니즘</h4>
-    <p>C가 B의 슬롯 동안 블록을 방출하려면 A의 블록에서 직접 체인을 이어야 합니다. 하지만 리더 스케줄에는 B가 A 다음이라고 명시되어 있으므로, C는 마치 B가 블록을 전혀 방출하지 않은 것처럼 보이게 만들어야 합니다. 즉, A - (누락된 블록 B) - C와 같은 순서로 만들어야 하는 것입니다.</p>
-    
-    <h4>PoH 계산의 딜레마</h4>
-    <p>정직한 C라면 B의 슬롯 전체 기간 동안 기다렸다는 것을 증명하는 PoH 시퀀스를 생성한 후에 자신의 슬롯을 시작해야 합니다. 따라서 부정직한 C는 자신의 슬롯을 시작하기 전에 B의 전체 슬롯 동안 기다렸다는 것을 보여주기 위해 충분한 PoH 해시를 계산해야 합니다. 하지만 이 계산을 하는 동안 B는 이미 A에서 체인을 이어 자신의 블록을 제출하고 있습니다.</p>
-    
-    <h4>경쟁의 결과</h4>
-    <p>만약 C가 B보다 PoH 계산 속도가 빠르지 않다면, B가 자신의 블록을 완성할 즈음에 C가 자신의 블록을 방출하기 시작합니다. 하지만 이때 네트워크는 이미 B의 블록을 받았고 처리하고 있는 상태이므로 C의 블록을 거부합니다. 일부 검증자들이 네트워크 지연으로 인해 늦게 두 블록을 모두 받을 수 있지만, 스테이크 가중치의 2/3가 C의 완전한 블록을 B의 블록보다 훨씬 먼저 봐야만 C의 블록이 승인될 수 있습니다.</p>
-    
-    <p>만약 C가 B보다 PoH 계산이 빠르다면, B가 블록 전송을 완료하기 전에 자신의 블록을 보내기 시작할 수 있습니다. 하지만 C가 B보다 압도적으로 빨라야 B의 블록이 상당 부분 완성되어 네트워크에 보이기 전에 자신의 블록을 시작할 수 있으므로, 이는 매우 unlikely한 시나리오입니다.</p>
-    
-    <h4>실패의 비용</h4>
-    <p>C의 검열 시도가 실패하면(높은 확률로 실패할 것입니다), C는 자신의 정당한 슬롯 동안 어떤 블록도 방출할 수 없게 됩니다. 왜냐하면 C가 A에서 직접 체인을 이은 블록(A-C 블록)을 이미 방출했는데, 이제 B의 블록에서 체인을 이은 다른 블록(B-C 블록)을 제출한다면 C의 슬롯에 대해 두 개의 블록을 생성하는 것이 되어 슬래싱 규칙에 위반되기 때문입니다.</p>
-    
-    <p>따라서 C의 B 검열 시도는 거의 확실히 실패하며, 시도할 때마다 C는 자신의 슬롯에서 블록을 방출할 기회를 잃게 됩니다. 결국 C에게는 대부분의 경우 손해가 되는 전략이므로, C는 이런 시도를 할 가능성이 매우 낮습니다.</p>
-
-
-    <div class="diagram">
-        <img src="images/anatoly.png" alt="Solana Leader">
-    </div>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-number">432,000</span>
-        <div class="stat-label">에포크당 슬롯 수</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">1/100</span>
-        <div class="stat-label">검증 시간 대비 생성 시간</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">66%</span>
-        <div class="stat-label">블록 승인 필요 스테이크</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">2 에포크</span>
-        <div class="stat-label">리더 스케줄 사전 결정</div>
-      </div>
-    </div>
 
     <h3>Conclusion</h3>
     <div class="highlight">
@@ -795,7 +759,7 @@
       <div class="flow-step">
         <span class="step-number">2</span>
         <div class="step-title">걸프스트림(Gulfstream)</div>
-        <p>RPC 노드가 현재 및 다음 리더에게 트랜잭션을 전달합니다. 멤풀 없이 트랜잭션을 효율적으로 선-전송하여 처리 대기 시간을 최소화합니다.</p>
+        <p>RPC 노드가 벨리데이터에게 혹은 직접 트랜잭션을 전달합니다. 멤풀 없이 트랜잭션을 효율적으로 선-전송하여 처리 대기 시간을 최소화합니다.</p>
       </div>
       <div class="flow-step">
         <span class="step-number">3</span>
@@ -880,22 +844,7 @@
   <div class="slide">
     <h2>Recent Blockhash & Transaction Lifecycle</h2>
     <h3>Automatic Transaction Expiration</h3>
-    
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-number">150 슬롯</span>
-        <div class="stat-label">Recent Blockhash 유효 시간</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">~1분</span>
-        <div class="stat-label">실제 만료 시간 (400ms × 150)</div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">2초</span>
-        <div class="stat-label">RPC 재전송 간격</div>
-      </div>
-    </div>
-    
+
     <div class="highlight">
       <p><strong>핵심 메커니즘:</strong> 모든 솔라나 트랜잭션은 Recent Blockhash를 포함해야 하며, 150 슬롯 후 자동 만료됩니다. 이는 중복 트랜잭션 방지와 네트워크 정리를 동시에 수행합니다.</p>
     </div>
@@ -1261,11 +1210,7 @@
   <div class="slide">
     <h2>Transaction Validation Unit (TVU)</h2>
     <h3>Block Validation & Consensus</h3>
-    
-    <div class="highlight">
-      <p><strong>Vitalik Buterin (Ethereum Co-Founder):</strong> "Some smart people tell me there is an earnest smart developer community in Solana… I hope the community gets its fair chance to thrive."</p>
-    </div>
-    
+
     <p>검증자가 Turbine을 통해 리더로부터 새로운 블록을 받으면, 각 엔트리 내의 모든 트랜잭션을 검증해야 합니다. 이는 전체 블록을 재생하고, PoH 해시를 병렬로 검증하며, PoH가 지시하는 순서대로 트랜잭션을 재생성하고, 로컬 bank를 업데이트하는 과정을 포함합니다.</p>
     
     <div class="diagram">
@@ -1695,6 +1640,1269 @@
     </div>
     
     <p class="note">Solana는 PoH, Gulfstream, Banking Stage, Turbine의 혁신적 조합으로 블록체인 트릴레마(확장성, 보안성, 탈중앙화)를 해결했습니다. 멤풀 없는 아키텍처, 병렬 처리 엔진, 효율적인 합의 메커니즘을 통해 차세대 분산 애플리케이션을 위한 고성능 인프라를 제공하며, 웹3 생태계의 대중화를 이끌어가고 있습니다.</p>
+  </div>
+
+  <div class="slide">
+    <h1>솔라나 개발</h1>
+  </div>
+
+  <div class="slide">
+    <h2>목차</h2>
+    <h3>주요 학습 내용</h3>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">솔라나 계정 모델</div>
+        <p>데이터 저장 방식, 시스템 프로그램, PDA 개념</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">트랜잭션과 인스트럭션</div>
+        <p>AccountMeta, 병렬 처리, SOL 전송 예제</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">Anchor 프레임워크</div>
+        <p>주요 매크로, 계정 검증, 프로그램 구조</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">4</span>
+        <div class="step-title">실습: 투표 시스템</div>
+        <p>단계별 구현, PDA 설계, 시간 검증</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">5</span>
+        <div class="step-title">Orca DEX 분석</div>
+        <p>프로덕션 코드 구조, 실무 패턴</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>솔라나 계정이란?</h2>
+    <h3>솔라나 데이터 모델의 기초</h3>
+    
+    <div class="diagram">
+      <img src="images/Account.png" alt="솔라나 계정 구조">
+    </div>
+    
+    <p>솔라나에서는 모든 데이터가 <strong>"계정(accounts)"</strong>이라고 불리는 곳에 저장됩니다. 솔라나의 데이터를 단일 "계정" 테이블이 있는 공개 데이터베이스로 생각할 수 있으며, 이 테이블의 각 항목이 "계정"입니다. 모든 솔라나 계정은 동일한 기본 계정 타입을 공유합니다.</p>
+    
+
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">핵심 속성</div>
+        <ul>
+          <li><strong>데이터 저장:</strong> 최대 10MiB 데이터 저장 가능 (실행 코드 또는 프로그램 상태)</li>
+          <li><strong>임대료 요구사항:</strong> 저장된 데이터에 비례하는 램포트 보증금 필요</li>
+          <li><strong>프로그램 소유권:</strong> 모든 계정은 지정된 프로그램 소유자를 가짐</li>
+          <li><strong>권한 모델:</strong> 소유자 프로그램만 데이터 수정 또는 잔액 차감 가능</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">계정 분류</div>
+        <ul>
+          <li><strong>시스템 계정:</strong> 네트워크 클러스터 상태 정보 저장</li>
+          <li><strong>프로그램 계정:</strong> 스마트 컨트랙트의 실행 코드 저장</li>
+          <li><strong>데이터 계정:</strong> 프로그램이 상태를 저장하고 관리하기 위해 생성</li>
+          <li><strong>Sysvar 계정:</strong> 네트워크 클러스터 상태를 가진 특수 계정</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>계정 주소 체계와 구조</h2>
+    <h3>고유 식별 시스템</h3>
+    
+    <div class="diagram">
+      <img src="images/Account2.png" alt="계정 주소 체계">
+    </div>
+    
+    <p>솔라나의 모든 계정은 고유한 32바이트 주소를 가지며, 이는 보통 base58 인코딩된 문자열로 표시됩니다 (예: <code>14grJpemFaf88c8tiVb77W7TYg2W3ir6pfkKz3YjhhZ5</code>).</p>
+
+    <div class="comparison-container">
+      <div class="comparison-card">
+        <div class="comparison-title" style="color: #9945FF;">🟣 Ed25519 공개키</div>
+        <ul>
+          <li>가장 일반적인 계정 주소 유형</li>
+          <li>암호화 키 쌍에서 생성</li>
+          <li>지갑 계정과 사용자 제어 계정에 사용</li>
+          <li>공개키에서 파생된 32바이트 주소</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="code-block">
+// 예시: Ed25519 키 쌍 생성
+use solana_sdk::signer::{keypair::Keypair, Signer};
+
+let keypair = Keypair::new();
+println!("공개키: {}", keypair.pubkey());
+println!("개인키: {:?}", keypair.to_bytes());
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>기본 계정 타입 구조</h2>
+    <h3>범용 계정 필드</h3>
+    
+    <p>계정의 최대 크기는 10MiB이며, 솔라나의 모든 계정은 5개의 필수 필드를 가진 동일한 기본 계정 타입을 공유합니다.</p>
+    
+    <div class="code-block">
+pub struct Account {
+    /// 계정의 램포트 잔액
+    pub lamports: u64,
+    /// 이 계정에 저장된 데이터
+    pub data: Vec&lt;u8&gt;,
+    /// 이 계정을 소유하는 프로그램
+    pub owner: Pubkey,
+    /// 이 계정의 데이터가 실행 가능한 프로그램인지 여부
+    pub executable: bool,
+    /// 이 계정이 다음 임대료를 지불해야 하는 에포크 (더 이상 사용되지 않음)
+    pub rent_epoch: Epoch,
+}
+    </div>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">Lamports 필드</div>
+        <p>램포트 단위의 계정 잔액 (SOL의 최소 단위: 1 SOL = 10억 램포트). 계정의 SOL 잔액을 나타내며 데이터 저장에 필요한 최소 임대료 보증금을 포함합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">Data 필드</div>
+        <p>임의의 데이터를 저장하는 바이트 배열. 프로그램 계정의 경우 실행 코드를 포함하고, 데이터 계정의 경우 소유 프로그램이 정의한 상태 정보를 저장합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">Owner 필드</div>
+        <p>이 계정을 소유하는 프로그램의 ID (공개키). 소유자 프로그램만이 계정 데이터를 수정하거나 램포트 잔액을 차감할 수 있습니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">4</span>
+        <div class="step-title">Executable 필드</div>
+        <p>계정이 실행 가능한 프로그램 코드를 포함하는지를 나타내는 불린 값. 프로그램 계정은 true, 상태를 저장하는 데이터 계정은 false입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>시스템 프로그램과 계정 생성</h2>
+    <h3>계정 관리의 기반</h3>
+    
+    <div class="diagram">
+      <img src="images/Systemprogram.png" alt="시스템 프로그램">
+    </div>
+    
+    <p>기본적으로 프로그램이 아닌 계정은 시스템 프로그램이 소유합니다. 시스템 프로그램은 계정 생명주기 관리에 중요한 기능을 수행하며, 솔라나에서 새 계정을 생성할 수 있는 유일한 프로그램입니다.</p>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">시스템 프로그램 기능</div>
+        <ul>
+          <li><strong>새 계정 생성:</strong> 계정을 생성할 수 있는 유일한 프로그램</li>
+          <li><strong>공간 할당:</strong> 계정 데이터 필드의 바이트 용량 설정</li>
+          <li><strong>소유권 할당:</strong> 다른 프로그램으로 소유권 이전 가능</li>
+          <li><strong>SOL 전송:</strong> 계정 간 램포트 전송</li>
+        </ul>
+      </div>
+    
+    </div>
+    
+    <div class="highlight">
+      <p><strong>시스템 프로그램 주소:</strong> <code>11111111111111111111111111111111</code></p>
+      <p>새 주소로 SOL이 처음 전송되면, 해당 주소에 시스템 프로그램이 소유하는 계정이 자동으로 생성됩니다.</p>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>프로그램 계정과 로더</h2>
+    <h3>실행 코드 저장</h3>
+    
+    <div class="diagram">
+      <img src="images/BPFLoader.png" alt="BPF 로더">
+    </div>
+    
+    <p>솔라나 프로그램을 배포하면 프로그램 코드를 저장하는 실행 가능한 프로그램 계정이 생성됩니다. 프로그램 계정은 System Program이 생성하여 소유권을 BPFLoader에게 넘겨줍니다. 로더 프로그램은 실행 가능한 프로그램 계정을 로드하고 관리하는 역할을 하는 내장 프로그램 역할을 합니다.</p>
+
+    
+    owner: BPFLoader2111111111111111111111111111111111,
+  </div>
+
+  <div class="slide">
+    <h2>데이터 계정과 상태 관리</h2>
+
+    <div class="diagram">
+        <img src="images/DataAccount.png" alt="BPF 로더">
+      </div>
+
+    <h3>프로그램 상태 저장</h3>
+    
+    <p>솔라나에서는 실행 코드와 프로그램 상태가 별도로 저장됩니다. 프로그램은 자신이 소유하는 데이터 계정을 생성하는 명령어를 정의하며, 각 계정은 고유한 주소를 가지고 프로그램이 정의한 임의의 데이터를 저장할 수 있습니다.</p>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">계정 생성 요청</div>
+        <p>커스텀 프로그램이 시스템 프로그램에 지정된 크기와 임대료 보증금으로 새 계정 생성을 요청합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">시스템 프로그램이 계정 생성</div>
+        <p>시스템 프로그램이 계정을 생성하고 초기에 소유하며, 데이터 필드에 요청된 공간을 할당합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">소유권 이전</div>
+        <p>시스템 프로그램이 새로 생성된 계정의 소유권을 요청한 커스텀 프로그램으로 이전합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">4</span>
+        <div class="step-title">데이터 초기화</div>
+        <p>이제 소유자가 된 커스텀 프로그램이 정의된 구조와 로직에 따라 계정 데이터를 초기화합니다.</p>
+      </div>
+    </div>
+    
+    <div class="highlight">
+      <p><strong>핵심 원칙:</strong> 시스템 프로그램만이 새 계정을 생성할 수 있습니다. 생성 후 소유권을 커스텀 프로그램으로 이전할 수 있으며, 이후 해당 프로그램이 자신의 프로그램 로직에 따라 계정의 데이터와 상태를 관리합니다.</p>
+    </div>
+    </div>
+    <div class="slide">
+        <h2>Sysvar 계정</h2>
+        <h3>네트워크 클러스터 상태 접근</h3>
+        
+        <p>Sysvar 계정은 클러스터 상태 데이터에 대한 접근을 제공하는 미리 정의된 주소의 특수 계정입니다. 이러한 계정은 네트워크 클러스터에 대한 정보로 동적으로 업데이트되며 모든 프로그램에서 사용할 수 있습니다.</p>
+        
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-title">Clock Sysvar</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-title">Rent Sysvar</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-title">Stake History Sysvar</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-title">Recent Blockhashes</div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="slide">
+    <h2>rent와 저장소</h2>
+    <h3>계정 저장소 비용 모델</h3>
+    
+    <p>온체인에 데이터를 저장하려면 계정은 저장된 데이터 양에 비례하는 램포트(SOL) 잔액을 유지해야 합니다. 이 잔액을 "임대료"라고 하지만, 회수 가능한 보증금처럼 작동합니다.</p>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+        <div class="feature-title">개발자 고려사항</div>
+        <ul>
+            <li><strong>데이터 최적화:</strong> 임대료 비용을 줄이기 위해 데이터 최적화</li>
+            <li><strong>계정 재사용:</strong> 가능한 경우 계정 재사용</li>
+            <li><strong>생명주기 계획:</strong> 계정 생성 및 닫기 계획</li>
+            <li><strong>비용 계산:</strong> 임대료 계산기를 사용하여 비용 예측</li>
+        </ul>
+        </div>
+    </div>
+    </div>
+
+  <div class="slide">
+    <h2>Transaction과 Instruction</h2>
+
+    <div class="diagram">
+        <img src="images/Transaction.png" alt="AccountMeta 구조">
+      </div>
+
+    <h3>네트워크와 상호작용</h3>
+    
+    <div class="diagram">
+      <img src="images/Transaction2.png" alt="Transaction 구조">
+    </div>
+    
+    <p>솔라나에서 사용자는 네트워크와 상호작용하기 위해 Transaction을 전송합니다. Transaction은 처리할 작업을 지정하는 하나 이상의 Instruction을 포함합니다. Instruction의 실행 로직은 솔라나 네트워크에 배포된 프로그램에 저장되며, 각 프로그램은 자체 Instruction 집합을 정의합니다.</p>
+    
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">Transaction 핵심 특징</div>
+        <ul>
+          <li><strong>다중 Instruction:</strong> 하나의 Transaction에 여러 Instruction 포함 가능</li>
+          <li><strong>실행 순서:</strong> Instruction은 Transaction에 추가된 순서대로 실행</li>
+          <li><strong>원자성:</strong> 모든 Instruction이 성공해야 하며, 하나라도 실패하면 전체 Transaction 실패</li>
+          <li><strong>프로그램 호출:</strong> 네트워크의 프로그램을 호출하는 Instruction 포함</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">Instruction 필수 정보</div>
+        <ul>
+          <li><strong>프로그램 주소:</strong> 호출할 프로그램의 주소</li>
+          <li><strong>계정 목록:</strong> Instruction이 읽거나 쓸 계정들</li>
+          <li><strong>추가 데이터:</strong> Instruction에 필요한 추가 데이터 (함수 인수 등)</li>
+          <li><strong>권한 정보:</strong> 계정의 서명자 및 쓰기 가능 여부</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="highlight">
+      <p><strong>비유:</strong> Transaction은 양식이 들어있는 봉투로 생각할 수 있습니다. 각 양식은 네트워크에 무엇을 할지 알려주는 Instruction입니다. Transaction을 보내는 것은 양식을 처리하기 위해 봉투를 우편으로 보내는 것과 같습니다.</p>
+    </div>
+
+    이더리움은 하나의 계정에 State + Program 둘 다 있는데 솔라나는 두개의 계정으로 나눈다 왜??  <br>
+    --> 최대한 잘게 쪼개서 병렬 처리성을 높일 수 있다. Read Write를 구분도 가능
+
+    성능을 높이려면 불편을 감수해야하는데 
+  </div>
+
+  <div class="slide">
+    <h2>SOL 전송 예제</h2>
+    <h3>시스템 프로그램 호출</h3>
+    
+    <div class="diagram">
+      <img src="images/Transaction3.png" alt="SOL 전송">
+    </div>
+    
+    <p>아래 다이어그램은 발신자에서 수신자로 SOL을 전송하는 단일 Instruction이 있는 Transaction을 나타냅니다. 솔라나에서 "지갑"은 시스템 프로그램이 소유하는 계정입니다. 프로그램 소유자만 계정의 데이터를 변경할 수 있으므로, SOL 전송에는 시스템 프로그램을 호출하는 Transaction 전송이 필요합니다.</p>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">Transaction 서명</div>
+        <p>발신자 계정이 Transaction에 서명(is_signer)하여 시스템 프로그램이 자신의 램포트 잔액을 차감할 수 있도록 허용합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">계정 권한 설정</div>
+        <p>발신자와 수신자 계정은 모두 램포트 잔액이 변경되므로 쓰기 가능(is_writable)해야 합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">시스템 프로그램 처리</div>
+        <p>Transaction 전송 후, 시스템 프로그램이 전송 Instruction을 처리하고 발신자와 수신자 계정의 램포트 잔액을 업데이트합니다.</p>
+      </div>
+    </div>
+    
+    <div class="diagram">
+      <img src="images/Transaction4.png" alt="SOL 전송 과정">
+    </div>
+  </div>
+
+
+  <div class="slide">
+    <h2>AccountMeta</h2>
+    <h3>계정 메타데이터와 권한</h3>
+    
+    <div class="diagram">
+      <img src="images/AccountMeta.png" alt="AccountMeta 구조">
+    </div>
+    
+    <p>명령어를 생성할 때 필요한 각 계정을 <code>AccountMeta</code>로 제공해야 합니다. AccountMeta는 계정의 공개키, 서명 필요 여부, 쓰기 가능 여부를 지정합니다.</p>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">pubkey</div>
+        <p>계정의 주소를 나타내는 공개키입니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">is_signer</div>
+        <p>계정이 트랜잭션에 서명해야 하는지를 나타냅니다. true인 경우 해당 계정의 개인키로 트랜잭션에 서명해야 합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">is_writable</div>
+        <p>명령어가 계정의 데이터를 수정하는지를 나타냅니다. true인 경우 계정의 데이터나 메타데이터가 변경될 수 있습니다.</p>
+      </div>
+    </div>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">병렬 실행의 핵심</div>
+        <ul>
+          <li><strong>사전 명시:</strong> 명령어가 읽거나 쓸 계정을 미리 지정</li>
+          <li><strong>계정 충돌 방지:</strong> 동일한 계정을 수정하지 않는 트랜잭션들은 병렬 실행</li>
+          <li><strong>성능 향상:</strong> 솔라나의 높은 TPS를 가능하게 하는 핵심 메커니즘</li>
+          <li><strong>예측 가능성:</strong> 실행 전에 어떤 계정이 영향받을지 알 수 있음</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">개발자 편의성</div>
+        <ul>
+          <li><strong>클라이언트 라이브러리:</strong> 대부분의 프로그램이 헬퍼 함수 제공</li>
+          <li><strong>자동 생성:</strong> 명령어를 수동으로 구성할 필요 없음</li>
+          <li><strong>타입 안전성:</strong> 잘못된 계정 구성을 컴파일 시점에 방지</li>
+          <li><strong>문서화:</strong> 프로그램 구현을 참조하여 필요한 계정 확인</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="highlight">
+      <p><strong>실제 사용:</strong> 실제로는 명령어를 수동으로 구성할 필요가 거의 없습니다. 대부분의 프로그램 개발자는 명령어를 생성해주는 헬퍼 함수가 있는 클라이언트 라이브러리를 제공합니다. 어떤 계정이 필요한지, 어떤 계정이 쓰기 가능하거나 읽기 전용이어야 하는지, 또는 트랜잭션에 서명해야 하는지를 알려면 프로그램에서 정의한 명령어의 구현을 참조해야 합니다.</p>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Program Derived Address (PDA)</h2>
+    <h3>결정론적 주소 생성과 프로그램 서명</h3>
+    
+    <p>Program Derived Address (PDA)는 솔라나 개발에서 두 가지 주요 용도로 사용되는 기능입니다: <strong>결정론적 계정 주소 생성</strong>과 <strong>프로그램 서명 활성화</strong>입니다.</p>
+    
+
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">PDA의 핵심 특징</div>
+        <ul>
+          <li><strong>결정론적 생성:</strong> 선택적 시드와 프로그램 ID 조합으로 항상 동일한 주소 생성</li>
+          <li><strong>해시맵 구조:</strong> 미리 정의된 입력(문자열, 숫자, 계정 주소)으로 온체인 해시맵 생성</li>
+          <li><strong>주소 추적 불필요:</strong> 정확한 주소 기억 대신 파생에 사용된 입력만 기억하면 됨</li>
+          <li><strong>프로그램 서명:</strong> 솔라나 런타임이 프로그램을 대신해 PDA에 서명 가능</li>
+        </ul>
+      </div>
+
+    </div>
+    
+  </div>
+
+  <div class="slide">
+    <h2>PDA 파생 과정</h2>
+    <h3>3가지 입력으로 주소 생성</h3>
+    
+    <p>PDA 파생에는 세 가지 입력이 필요합니다:</p>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">선택적 시드 (Optional Seeds)</div>
+        <p>PDA 파생을 위한 미리 정의된 입력들 (문자열, 숫자, 다른 계정 주소 등). 이 시드들은 바이트로 변환되어 사용됩니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">Bump 시드</div>
+        <p>유효한 PDA(곡선 밖)가 생성되도록 보장하기 위해 선택적 시드에 추가되는 추가 바이트입니다. 255에서 시작하여 유효한 PDA를 찾을 때까지 1씩 감소합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">프로그램 ID</div>
+        <p>PDA가 파생되는 프로그램의 주소입니다. 이 프로그램이 PDA를 대신하여 서명할 수 있습니다.</p>
+      </div>
+    </div>
+    
+    <div class="diagram">
+        <img src="images/PDA.png" alt="SOL 전송 과정">
+      </div>
+    
+    장점 : 1. 주소 기억 불필요 ex) 참가자 1번의 데이터가 있는 주소 위치 = PDA로 알아낼 수 있다. <br>
+            2. 프라이빗 키 기억할 필요 없다. ownership을 프로그램에 종속시켜 키관리 불필요. 
+
+  </div>
+
+
+  <div class="slide">
+    <h2>Solana 개발 흐름</h2>
+    <h3>Rust와 Anchor 프레임워크</h3>
+    
+    <p>Solana 개발은 주로 Rust 언어와 Anchor 프레임워크를 사용하여 이루어집니다. 이는 고성능과 안전성을 보장하면서도 개발 효율성을 높여줍니다.</p>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">개발 환경 설정</div>
+        <p>Rust 설치 후 Anchor 프레임워크를 설정합니다. Anchor는 이더리움의 Truffle/Hardhat/Foundry와 같은 역할을 하며 개발 과정을 간소화해줍니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">프로그램 작성</div>
+        <p>Rust로 함수들을 작성하고 필요한 상태(Struct)를 정의합니다. 각 함수가 어떤 계정에 읽기/쓰기 접근을 하는지 명시해야 합니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">빌드 및 컴파일</div>
+        <p>작성한 프로그램을 BPF 바이트코드로 컴파일합니다. Anchor CLI가 이 과정을 자동화해줍니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">4</span>
+        <div class="step-title">클러스터 배포</div>
+        <p>컴파일된 프로그램을 솔라나 클러스터에 배포합니다. 성공하면 프로그램 주소(Program ID)가 발급됩니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">5</span>
+        <div class="step-title">계정 생성 및 초기화</div>
+        <p>프로그램이 사용할 계정들을 생성하고 초기 데이터를 설정합니다 (토큰 발행량, NFT 메타데이터 등).</p>
+      </div>
+    </div>
+    
+    
+  </div>
+
+  <div class="slide">
+    <h1>Anchor 프레임워크 배우기</h1>
+    <h3>솔라나 프로그램 개발을 위한 고급 도구</h3>
+    
+    <p>Anchor는 솔라나 프로그램 개발을 위한 프레임워크로, Rust 매크로를 사용하여 보일러플레이트 코드를 줄이고 솔라나 프로그램 작성에 필요한 일반적인 보안 검사를 단순화합니다.</p>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">주요 매크로</div>
+        <ul>
+          <li><strong>declare_id!:</strong> 프로그램의 온체인 주소 지정</li>
+          <li><strong>#[program]:</strong> 명령어 로직을 포함하는 모듈 지정</li>
+          <li><strong>#[derive(Accounts)]:</strong> 명령어 필요 계정 목록 정의</li>
+          <li><strong>#[account]:</strong> 프로그램용 커스텀 계정 타입 생성</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>프로그램 구조와 주요 매크로</h2>
+    <h3>Anchor 프로그램의 기본 구조</h3>
+    
+    <p>Anchor 프로그램에서 발견되는 주요 매크로들을 실제 예제를 통해 살펴보겠습니다:</p>
+    
+    <div class="code-block">
+use anchor_lang::prelude::*;
+
+// 1. 프로그램 ID 선언
+declare_id!("11111111111111111111111111111111");
+
+// 2. 프로그램 모듈과 명령어 핸들러
+#[program]
+mod hello_anchor {
+    use super::*;
+    
+    pub fn initialize(ctx: Context&lt;Initialize&gt;, data: u64) -> Result&lt;()&gt; {
+        ctx.accounts.new_account.data = data;
+        msg!("Changed data to: {}!", data);
+        Ok(())
+    }
+}
+
+// 3. 계정 구조체 정의 (명령어에 필요한 계정들)
+#[derive(Accounts)]
+pub struct Initialize&lt;'info&gt; {
+    #[account(init, payer = signer, space = 8 + 8)]
+    pub new_account: Account&lt;'info, NewAccount&gt;,
+    #[account(mut)]
+    pub signer: Signer&lt;'info&gt;,
+    pub system_program: Program&lt;'info, System&gt;,
+}
+
+// 4. 커스텀 계정 타입 정의
+#[account]
+pub struct NewAccount {
+    data: u64,
+}
+    </div>
+    
+    <div class="highlight">
+      <p><strong>예제 설명:</strong> 위 프로그램은 새 계정(NewAccount)을 생성하고 u64 값으로 초기화하는 단일 명령어 `initialize`를 포함합니다. 각 매크로는 특정한 역할을 수행하여 개발 과정을 단순화합니다.</p>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>declare_id! 매크로</h2>
+    <h3>프로그램 주소 지정</h3>
+    
+    <div class="code-block">
+use anchor_lang::prelude::*;
+
+declare_id!("11111111111111111111111111111111");
+    </div>
+    
+    <p><code>declare_id</code> 매크로는 프로그램 ID라고 알려진 프로그램의 온체인 주소를 지정합니다. 기본적으로 프로그램 ID는 <code>/target/deploy/your_program_name.json</code>에서 생성된 키 쌍의 공개키입니다.</p>
+    
+    
+  </div>
+
+  <div class="slide">
+    <h2>#[program] 속성</h2>
+    <h3>명령어 핸들러 모듈</h3>
+    
+    <p><code>#[program]</code> 속성은 프로그램의 모든 명령어 핸들러를 포함하는 모듈에 적용됩니다. 이 모듈 내의 각 공개 함수는 호출할 수 있는 명령어에 해당합니다.</p>
+    
+    <div class="code-block">
+#[program]
+mod hello_anchor {
+    use super::*;
+    
+    pub fn initialize(ctx: Context&lt;Initialize&gt;, data: u64) -> Result&lt;()&gt; {
+        ctx.accounts.new_account.data = data;
+        msg!("Changed data to: {}!", data);
+        Ok(())
+    }
+}
+    </div>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">명령어 핸들러</div>
+        <p>명령어가 호출될 때 실행되는 로직을 정의하는 함수입니다. 첫 번째 매개변수는 항상 <code>Context&lt;T&gt;</code> 타입입니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">추가 매개변수</div>
+        <p>명령어가 호출될 때 제공되어야 하는 인수를 지정하는 선택적 매개변수들입니다.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">반환값</div>
+        <p>모든 명령어 핸들러는 <code>Result&lt;()&gt;</code> 타입을 반환하여 성공 또는 오류를 나타냅니다.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="slide">
+    <h2>#[derive(Accounts)] 매크로</h2>
+    <h3>계정 검증과 직렬화</h3>
+    
+    <p><code>#[derive(Accounts)]</code> 매크로는 명령어가 호출될 때 제공되어야 하는 계정들을 지정하는 구조체에 적용됩니다.</p>
+    
+    <div class="code-block">
+#[derive(Accounts)]
+pub struct Initialize&lt;'info&gt; {
+    #[account(init, payer = signer, space = 8 + 8)]
+    pub new_account: Account&lt;'info, NewAccount&gt;,
+    #[account(mut)]
+    pub signer: Signer&lt;'info&gt;,
+    pub system_program: Program&lt;'info, System&gt;,
+}
+    </div>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">필드 명명</div>
+        <p>구조체의 각 필드는 명령어에 필요한 계정을 나타냅니다. 필드 이름은 임의적이지만, 계정의 목적을 나타내는 설명적인 이름을 사용하는 것이 권장됩니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">계정 제약</div>
+        <p><code>#[account(..)]</code> 속성을 사용하여 계정이 명령어에 유효한 것으로 간주되기 위해 만족해야 하는 추가 조건을 정의할 수 있습니다.</p>
+      </div>
+    </div>
+    
+    <div class="highlight">
+      <p><strong>자동 검증:</strong> Anchor 프로그램에서 명령어가 호출되면, 프로그램은 먼저 제공된 계정들을 검증한 후 명령어의 로직을 실행합니다.</p>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>#[account] 속성</h2>
+    <h3>커스텀 계정 타입 정의</h3>
+    
+    <p><code>#[account]</code> 속성은 프로그램에서 생성한 커스텀 계정에 저장되는 데이터의 구조를 정의하는 구조체에 적용됩니다.</p>
+    
+    <div class="code-block">
+#[account]
+pub struct NewAccount {
+    data: u64,
+}
+    </div>
+    
+    <div class="feature-grid">
+    
+    </div>
+
+  </div>
+
+
+  <div class="slide">
+    <h2>Solidity -> Anchor</h2>
+
+    아래 간단한 솔리디티 코드를 살펴보자. 
+    
+    <div class="code-block">
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.26;
+
+contract SimpleCounter {
+    mapping(address => uint64) public value;      
+
+    // Solana initialize와 동일: 처음 한 번만 값 설정
+    function initialize(uint64 data) external {
+        value[msg.sender] = data;
+    }
+
+    // Solana add와 동일: (전달한 값 + 1) 로 덮어쓰기
+    function add(uint64 data) external {
+        value[msg.sender] = data + 1;
+    }
+}
+  </div>
+
+위의 솔리디티 코드를 Anchor 솔라나 프로그램으로 바꾸어 본다면??? 
+
+
+<div class="code-block">
+use anchor_lang::prelude::*;
+
+declare_id!("7PDDZHoXz5MDJQeBY2V28QRFGnM3iKGgDurHrdbg7LJj");
+
+#[program]
+mod hello_anchor {
+    use super::*;
+
+    pub fn initialize(ctx: Context<Initialize>, data: u64) -> Result<()> {
+        ctx.accounts.new_account.data = data;
+        msg!("Changed data to: {}!", data);
+        Ok(())
+    }
+
+    pub fn add(ctx: Context<Add>, data: u64) -> Result<()> {
+        ctx.accounts.created_account.data = data + 1;
+        msg!("Changed data to: {}!", ctx.accounts.created_account.data);
+        Ok(())
+    }
+
+}
+
+#[derive(Accounts)]
+pub struct Initialize<'info> {
+    #[account(init, payer = signer, space = 8 + 8, seeds = [b"counter", signer.key().as_ref()], bump) ]
+    pub new_account: Account<'info, NewAccount>,
+    #[account(mut)]
+    pub signer: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct Add<'info> {
+    #[account(
+        mut,
+        seeds = [b"counter", signer.key().as_ref()],
+        bump
+    )]
+    pub created_account: Account<'info, NewAccount>,
+    #[account(mut)]
+    pub signer: Signer<'info>,
+}
+
+#[account]
+pub struct NewAccount {
+    data: u64,
+}
+
+</div>
+
+  </div>
+
+  <div class="slide">
+    <h1>실습: 투표 시스템 구축하기</h1>
+    <h3>단계별 Anchor 프로그램 개발</h3>
+    
+    <p>실제 투표 시스템을 통해 Anchor 프로그램 개발의 전체 과정을 단계별로 살펴보겠습니다. 이 예제는 설문조사를 생성하고, 후보자를 추가하며, 투표하는 완전한 시스템입니다.</p>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">🗳️ 핵심 기능</div>
+        <ul>
+          <li><strong>설문 생성:</strong> 시작/종료 시간과 함께 새 투표 생성</li>
+          <li><strong>후보자 추가:</strong> 투표에 참여할 후보자들 등록</li>
+          <li><strong>투표 실행:</strong> 시간 제한 내에서 후보자에게 투표</li>
+          <li><strong>시간 검증:</strong> 투표 시작/종료 시간 자동 확인</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">🔧 학습 포인트</div>
+        <ul>
+          <li><strong>PDA 활용:</strong> 결정론적 주소로 계정 관리</li>
+          <li><strong>시드 설계:</strong> poll_id와 candidate 이름 조합</li>
+          <li><strong>시간 검증:</strong> Clock sysvar를 통한 시간 확인</li>
+          <li><strong>에러 처리:</strong> 커스텀 에러 코드 정의</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Step 1: 계정 구조 설계</h2>
+    <h3>각 함수별 필요 계정 매핑</h3>
+    
+    <p>먼저 각 함수가 어떤 계정들을 사용하는지 체계적으로 분석해보겠습니다:</p>
+    
+    <div class="comparison-container">
+      <div class="comparison-card">
+        <div class="comparison-title" style="color: #1a73e8;">📊 PollAccount</div>
+        <ul>
+          <li><strong>Seeds:</strong> ["poll", poll_id]</li>
+          <li><strong>용도:</strong> 투표의 기본 정보 저장</li>
+          <li><strong>데이터:</strong> 이름, 설명, 시작/종료시간, 옵션 수</li>
+          <li><strong>생명주기:</strong> initialize_poll에서 생성</li>
+        </ul>
+      </div>
+      <div class="comparison-card">
+        <div class="comparison-title" style="color: #34a853;">🙋 CandidateAccount</div>
+        <ul>
+          <li><strong>Seeds:</strong> [poll_id, candidate_name]</li>
+          <li><strong>용도:</strong> 각 후보자의 투표 수 저장</li>
+          <li><strong>데이터:</strong> 후보자 이름, 득표 수</li>
+          <li><strong>생명주기:</strong> initialize_candidate에서 생성</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">initialize_poll 함수</div>
+        <p><strong>사용 계정:</strong> Signer + PollAccount (생성) + SystemProgram</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">initialize_candidate 함수</div>
+        <p><strong>사용 계정:</strong> Signer + PollAccount (읽기) + CandidateAccount (생성) + SystemProgram</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">vote 함수</div>
+        <p><strong>사용 계정:</strong> Signer + PollAccount (읽기) + CandidateAccount (수정)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Step 2: 데이터 구조 정의</h2>
+    <h3>Account 구조체 설계</h3>
+    
+    <p>투표 시스템에 필요한 두 가지 주요 데이터 구조를 정의합니다:</p>
+    
+    <div class="code-block">#[account]
+#[derive(InitSpace)]
+pub struct PollAccount {
+    #[max_len(32)]
+    pub poll_name: String,           // 투표 제목 (최대 32자)
+    #[max_len(280)]
+    pub poll_description: String,    // 투표 설명 (최대 280자)
+    pub poll_voting_start: u64,      // 투표 시작 시간 (Unix timestamp)
+    pub poll_voting_end: u64,        // 투표 종료 시간 (Unix timestamp)
+    pub poll_option_index: u64,      // 후보자 수 카운터
+}
+
+#[account]
+#[derive(InitSpace)]
+pub struct CandidateAccount {
+    #[max_len(32)]
+    pub candidate_name: String,      // 후보자 이름 (최대 32자)
+    pub candidate_votes: u64,        // 득표 수
+}</div>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">InitSpace 매크로</div>
+        <p><code>#[derive(InitSpace)]</code>는 Anchor v0.30+에서 도입된 기능으로, 계정에 필요한 공간을 자동으로 계산합니다. <code>#[max_len(n)]</code> 속성과 함께 사용하여 String 필드의 최대 길이를 지정할 수 있습니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">공간 계산</div>
+        <p>PollAccount: 8(판별자) + 4+32(이름) + 4+280(설명) + 8+8+8(시간들) = 352바이트<br>
+        CandidateAccount: 8(판별자) + 4+32(이름) + 8(투표수) = 52바이트</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Step 3: 첫 번째 함수 - initialize_poll</h2>
+    <h3>투표 생성 기능</h3>
+    
+    <div class="code-block">pub fn initialize_poll(ctx: Context<InitializePoll>, 
+                        _poll_id: u64, 
+                        start_time: u64, 
+                        end_time: u64,
+                        name: String,
+                        description: String) -> Result<()> {
+    ctx.accounts.poll_account.poll_name = name;
+    ctx.accounts.poll_account.poll_description = description;
+    ctx.accounts.poll_account.poll_voting_start = start_time;
+    ctx.accounts.poll_account.poll_voting_end = end_time;
+    Ok(())
+}
+
+#[derive(Accounts)]
+#[instruction(poll_id: u64)]
+pub struct InitializePoll<'info> {
+    #[account(mut)]
+    pub signer: Signer<'info>,
+
+    #[account(
+        init_if_needed,
+        payer = signer,
+        space = 8 + PollAccount::INIT_SPACE,
+        seeds = [b"poll".as_ref(), poll_id.to_le_bytes().as_ref()],
+        bump
+    )]
+    pub poll_account: Account<'info, PollAccount>,
+
+    pub system_program: Program<'info, System>,
+}</div>
+    
+    <div class="flow-container">
+      <div class="flow-step">
+        <span class="step-number">1</span>
+        <div class="step-title">PDA 생성</div>
+        <p>Seeds: ["poll", poll_id]를 사용하여 각 투표마다 고유한 주소 생성</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">2</span>
+        <div class="step-title">계정 초기화</div>
+        <p>init_if_needed 제약으로 이미 존재하지 않는 경우에만 계정 생성</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-number">3</span>
+        <div class="step-title">데이터 설정</div>
+        <p>투표 이름, 설명, 시작/종료 시간을 계정에 저장</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Step 4: 두 번째 함수 - initialize_candidate</h2>
+    <h3>후보자 추가 기능</h3>
+    
+    <div class="code-block">pub fn initialize_candidate(ctx: Context<InitializeCandidate>, 
+                            _poll_id: u64, 
+                            candidate: String) -> Result<()> {
+    ctx.accounts.candidate_account.candidate_name = candidate;
+    ctx.accounts.poll_account.poll_option_index += 1;
+    Ok(())
+}
+
+#[derive(Accounts)]
+#[instruction(poll_id: u64, candidate: String)]
+pub struct InitializeCandidate<'info> {
+    #[account(mut)]
+    pub signer: Signer<'info>,
+
+    #[account(mut)]
+    pub poll_account: Account<'info, PollAccount>,
+
+    #[account(
+        init,
+        payer = signer,
+        space = 8 + CandidateAccount::INIT_SPACE,
+        seeds = [poll_id.to_le_bytes().as_ref(), candidate.as_ref()],
+        bump
+    )]
+    pub candidate_account: Account<'info, CandidateAccount>,
+
+    pub system_program: Program<'info, System>,
+}</div>
+    
+    <div class="highlight">
+      <p><strong>핵심 포인트:</strong> 이 함수는 두 개의 기존 계정과 상호작용합니다. PollAccount는 후보자 수를 증가시키기 위해 수정하고, CandidateAccount는 새로 생성합니다. Seeds 조합 [poll_id, candidate_name]으로 각 후보자마다 고유한 주소를 보장합니다.</p>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Step 5: 세 번째 함수 - vote</h2>
+    <h3>투표 실행 및 시간 검증</h3>
+    
+    <div class="code-block">pub fn vote(ctx: Context<Vote>, _poll_id: u64, _candidate: String) -> Result<()> {
+    let candidate_account = &mut ctx.accounts.candidate_account;
+    let current_time = Clock::get()?.unix_timestamp;
+
+    if current_time > (ctx.accounts.poll_account.poll_voting_end as i64) {
+        return Err(ErrorCode::VotingEnded.into());
+    }
+
+    if current_time <= (ctx.accounts.poll_account.poll_voting_start as i64) {
+        return Err(ErrorCode::VotingNotStarted.into());
+    }
+
+    candidate_account.candidate_votes += 1;
+    Ok(())
+}
+
+#[derive(Accounts)]
+#[instruction(poll_id: u64, candidate: String)]
+pub struct Vote<'info> {
+    #[account(mut)]
+    pub signer: Signer<'info>,
+
+    #[account(
+        mut,
+        seeds = [b"poll".as_ref(), poll_id.to_le_bytes().as_ref()],
+        bump,
+    )]
+    pub poll_account: Account<'info, PollAccount>,
+
+    #[account(
+        mut,
+        seeds = [poll_id.to_le_bytes().as_ref(), candidate.as_ref()],
+        bump
+    )]
+    pub candidate_account: Account<'info, CandidateAccount>,
+}</div>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">시간 검증 로직</div>
+        <ul>
+          <li><strong>Clock Sysvar:</strong> 현재 시간을 얻기 위한 시스템 계정</li>
+          <li><strong>투표 전:</strong> 아직 시작 시간이 되지 않음</li>
+          <li><strong>투표 후:</strong> 이미 종료 시간이 지남</li>
+          <li><strong>유효 시간:</strong> start_time ≤ now ≤ end_time</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">에러 처리</div>
+        <div class="code-block">#[error_code]
+pub enum ErrorCode {
+    #[msg("Voting has not started yet")]
+    VotingNotStarted,
+    #[msg("Voting has ended")]
+    VotingEnded,
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Step 6: 계정 관계도</h2>
+    <h3>전체 시스템 아키텍처</h3>
+    
+    <div class="diagram" style="text-align: left; font-family: monospace; background: #f8f9fa; padding: 20px; border-radius: 8px;">
+<pre>
+투표 시스템 계정 구조:
+
+┌─────────────────────────────────────────────────────────────┐
+│                        Poll #1                              │
+│  Seeds: ["poll", poll_id(1)]                               │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ PollAccount                                         │   │
+│  │ • poll_name: "대통령 선거"                           │   │
+│  │ • poll_description: "2024년 대선"                   │   │
+│  │ • poll_voting_start: 1640995200                     │   │
+│  │ • poll_voting_end: 1641081600                       │   │
+│  │ • poll_option_index: 3                             │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  후보자들:                                                   │
+│  ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐│
+│  │CandidateAccount │ │CandidateAccount │ │CandidateAccount ││
+│  │Seeds:[1,"김후보"]│ │Seeds:[1,"이후보"]│ │Seeds:[1,"박후보"]││
+│  │name: "김후보"    │ │name: "이후보"    │ │name: "박후보"    ││
+│  │votes: 150       │ │votes: 200       │ │votes: 100       ││
+│  └─────────────────┘ └─────────────────┘ └─────────────────┘│
+└─────────────────────────────────────────────────────────────┘
+
+함수별 계정 접근:
+• initialize_poll: PollAccount 생성
+• initialize_candidate: PollAccount 읽기/수정 + CandidateAccount 생성  
+• vote: PollAccount 읽기 + CandidateAccount 수정
+</pre>
+    </div>
+    
+    <div class="highlight">
+      <p><strong>Seeds 설계 철학:</strong> PollAccount는 투표별로 하나만 존재해야 하므로 poll_id만 사용하고, CandidateAccount는 같은 투표 내에서 후보자별로 하나씩 존재해야 하므로 poll_id + candidate_name을 조합합니다.</p>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Step 7: 완전한 프로그램 코드</h2>
+    <h3>모든 구성 요소 통합</h3>
+    
+    <div class="code-block">use anchor_lang::prelude::*;
+
+        declare_id!("GA9KPeboU2E1Lrkq3bDSqgzMYvfPjCDaeP2hai2LxXN9");
+        
+        #[program]
+        pub mod voting {
+            use super::*;
+        
+            pub fn initialize_poll(ctx: Context<InitializePoll>, 
+                                    _poll_id: u64, 
+                                    start_time: u64, 
+                                    end_time: u64,
+                                    name: String,
+                                    description: String) -> Result<()> {
+                ctx.accounts.poll_account.poll_name = name;
+                ctx.accounts.poll_account.poll_description = description;
+                ctx.accounts.poll_account.poll_voting_start = start_time;
+                ctx.accounts.poll_account.poll_voting_end = end_time;
+                Ok(())
+            }
+        
+            pub fn initialize_candidate(ctx: Context<InitializeCandidate>, 
+                                        _poll_id: u64, 
+                                        candidate: String) -> Result<()> {
+                ctx.accounts.candidate_account.candidate_name = candidate;
+                ctx.accounts.poll_account.poll_option_index += 1;
+                Ok(())
+            }
+        
+            pub fn vote(ctx: Context<Vote>, _poll_id: u64, _candidate: String) -> Result<()> {
+                let candidate_account = &mut ctx.accounts.candidate_account;
+                let current_time = Clock::get()?.unix_timestamp;
+        
+                if current_time > (ctx.accounts.poll_account.poll_voting_end as i64) {
+                    return Err(ErrorCode::VotingEnded.into());
+                }
+        
+                if current_time <= (ctx.accounts.poll_account.poll_voting_start as i64) {
+                    return Err(ErrorCode::VotingNotStarted.into());
+                }
+        
+                candidate_account.candidate_votes += 1;
+        
+                Ok(())
+            }
+            
+        }
+        
+        #[derive(Accounts)]
+        #[instruction(poll_id: u64)]
+        pub struct InitializePoll<'info> {
+            #[account(mut)]
+            pub signer: Signer<'info>,
+        
+            #[account(
+                init_if_needed,
+                payer = signer,
+                space = 8 + PollAccount::INIT_SPACE,
+                seeds = [b"poll".as_ref(), poll_id.to_le_bytes().as_ref()],
+                bump
+            )]
+            pub poll_account: Account<'info, PollAccount>,
+        
+            pub system_program: Program<'info, System>,
+        }
+        
+        #[derive(Accounts)]
+        #[instruction(poll_id: u64, candidate: String)]
+        pub struct InitializeCandidate<'info> {
+            #[account(mut)]
+            pub signer: Signer<'info>,
+        
+            pub poll_account: Account<'info, PollAccount>,
+        
+            #[account(
+                init,
+                payer = signer,
+                space = 8 + CandidateAccount::INIT_SPACE,
+                seeds = [poll_id.to_le_bytes().as_ref(), candidate.as_ref()],
+                bump
+            )]
+            pub candidate_account: Account<'info, CandidateAccount>,
+        
+            pub system_program: Program<'info, System>,
+        }
+        
+        #[derive(Accounts)]
+        #[instruction(poll_id: u64, candidate: String)]
+        pub struct Vote<'info> {
+            #[account(mut)]
+            pub signer: Signer<'info>,
+        
+            #[account(
+                mut,
+                seeds = [b"poll".as_ref(), poll_id.to_le_bytes().as_ref()],
+                bump,
+            )]
+            pub poll_account: Account<'info, PollAccount>,
+        
+            #[account(
+                mut,
+                seeds = [poll_id.to_le_bytes().as_ref(), candidate.as_ref()],
+                bump)]
+            pub candidate_account: Account<'info, CandidateAccount>,
+        }
+        
+        #[account]
+        #[derive(InitSpace)]
+        pub struct CandidateAccount {
+            #[max_len(32)]
+            pub candidate_name: String,
+            pub candidate_votes: u64,
+        }
+        
+        #[account]
+        #[derive(InitSpace)]
+        pub struct PollAccount{
+            #[max_len(32)]
+            pub poll_name: String,
+            #[max_len(280)]
+            pub poll_description: String,
+            pub poll_voting_start: u64,
+            pub poll_voting_end: u64,
+            pub poll_option_index: u64,
+        }
+        
+        #[error_code]
+        pub enum ErrorCode {
+            #[msg("Voting has not started yet")]
+            VotingNotStarted,
+            #[msg("Voting has ended")]
+            VotingEnded,
+        }
+    </div>
+  </div>
+
+  <div class="slide">
+    <h1>Orca DEX 코드 구조 파악</h1>
+    <h3>실제 프로덕션 Solana 프로그램 분석</h3>
+    
+    <p>Orca는 솔라나의 대표적인 탈중앙화 거래소(DEX)입니다. 실제 프로덕션에서 사용되는 Anchor 프로그램의 구조를 분석해보겠습니다.</p>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-title">📊 분석 목표</div>
+        <ul>
+          <li>실제 DEX 프로그램 구조 이해</li>
+          <li>복잡한 PDA 설계 패턴 학습</li>
+          <li>프로덕션 레벨 코드 품질 확인</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>Orca 프로그램 전체 구조</h2>
+    <h3>메인 프로그램 파일 분석</h3>
+    
+    <p>Orca DEX의 핵심 프로그램 파일 구조를 살펴보겠습니다:</p>
+    
+    <!-- 코드 이미지 공간 1 -->
+    <div class="diagram">
+        <img src="images/orca-dex/orca-file.png" alt="SOL 전송 과정">
+    </div>
+  </div>
+
+  <div class="slide">
+    <h2>lib 구조</h2>
+    
+    <p>Orca의 lib를 살펴보겠습니다:</p>
+
+    <div class="diagram">
+        <img src="images/orca-dex/lib.png" alt="SOL 전송 과정">
+    </div>
+    
+  </div>
+
+  <div class="slide">
+    <h2>Instruction 파일</h2>
+    
+    <p>Orca의 instruction:</p>
+    
+    <div class="diagram">
+        <img src="images/orca-dex/initialize_config.png" alt="SOL 전송 과정">
+    </div>
+
+  </div>
+
+  <div class="slide">
+    <h2>그 외</h2>
+    
+    <p>필요한 함수들 다른 파일에 넣는다.. 컨트랙트가 커질수록 비교적 간단:</p>
+    <div class="diagram">
+        <img src="images/orca-dex/orca-file.png" alt="SOL 전송 과정">
+    </div>
+   
   </div>
 
   <div class="diagram">
