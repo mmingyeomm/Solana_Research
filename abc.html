@@ -1,0 +1,589 @@
+# ECCPOW vs KAIJU 합의 엔진 비교 분석
+
+## 개요
+
+WorldLand 블록체인은 두 가지 합의 엔진을 제공합니다:
+- **ECCPOW**: LDPC 기반 작업증명(PoW) 합의 엔진
+- **KAIJU**: LDPC PoW + VRF 기반 소티션(Sortition) 하이브리드 합의 엔진
+
+---
+
+## 주요 차이점 요약
+
+| 항목 | ECCPOW | KAIJU |
+|------|--------|-------|
+| **합의 메커니즘** | 순수 LDPC PoW | LDPC PoW + VRF 소티션 |
+| **채굴 자격** | 모든 노드가 항상 채굴 가능 | 에포크별 VRF 소티션 통과 시에만 채굴 가능 |
+| **블록 헤더** | 기본 필드만 사용 | VRFProof, VRFPublicKey 추가 필드 |
+| **중앙화 방지** | 난이도 조정만 의존 | VRF 기반 확률적 채굴 자격 부여 |
+| **검증 과정** | PoW 검증만 수행 | PoW + VRF 증명 검증 |
+
+---
+
+## 1. 파일 구조 차이
+
+### ECCPOW 파일
+```
+consensus/eccpow/
+├── algorithm.go          # LDPC 난이도 계산
+├── consensus.go          # 합의 검증 로직
+├── sealer.go            # 블록 채굴 로직
+├── LDPC*.go            # LDPC 관련 유틸리티
+└── api.go              # RPC API
+```
+
+### KAIJU 파일 (추가 파일)
+```
+consensus/kaiju/
+├── algorithm.go          # LDPC 난이도 + VRF 소티션 계산
+├── consensus.go          # 합의 검증 + VRF 검증 로직
+├── sealer.go            # 블록 채굴 + VRF 증명 생성
+├── LDPC*.go            # LDPC 관련 유틸리티
+├── vrf_keys.go         # ✨ VRF 키 관리 (추가)
+├── vct_ed25519.go      # ✨ VRF 암호화 함수 (추가)
+├── vct_test.go         # ✨ VRF 테스트 (추가)
+└── api.go              # RPC API
+```
+
+---
+
+## 2. 합의 검증 로직 차이 (consensus.go)
+
+### 2.1 헤더 검증 워커 (verifyHeaderWorker)
+
+**ECCPOW (line 166-177):**
+```go
+func (ecc *ECC) verifyHeaderWorker(...) error {
+    // 부모 블록 찾기
+    var parent *types.Header
+    if index == 0 {
+        parent = chain.GetHeader(headers[0].ParentHash, ...)
+    } else if headers[index-1].Hash() == headers[index].ParentHash {
+        parent = headers[index-1]
+    }
+
+    // 일반 검증만 수행
+    return ecc.verifyHeader(chain, headers[index], parent, ...)
+}
+```
+
+**KAIJU (line 167-179):**
+```go
+func (ecc *ECC) verifyHeaderWorker(...) error {
+    // 부모 블록 찾기 (동일)
+    var parent *types.Header
+    if index == 0 {
+        parent = chain.GetHeader(headers[0].ParentHash, ...)
+    } else if headers[index-1].Hash() == headers[index].ParentHash {
+        parent = headers[index-1]
+    }
+
+    // ✨ 배치 헤더를 전달하여 VRF 시드 블록 조회 지원
+    return ecc.verifyHeaderWithBatch(chain, headers[index], parent, ..., headers)
+}
+```
+
+**차이점:**
+- KAIJU는 현재 검증 중인 헤더 배치를 함께 전달
+- VRF 검증 시 시드 블록이 아직 체인에 import되지 않았어도 배치 내에서 찾을 수 있음
+
+---
+
+### 2.2 헤더 검증 함수
+
+**ECCPOW (verifyHeader만 존재):**
+```go
+func (ecc *ECC) verifyHeader(...) error {
+    // 1. 타임스탬프 검증
+    // 2. 난이도 검증
+    // 3. 가스 리밋 검증
+    // 4. PoW seal 검증
+    if seal {
+        if err := ecc.verifySeal(chain, header); err != nil {
+            return err
+        }
+    }
+    // ❌ VRF 검증 없음
+    return nil
+}
+```
+
+**KAIJU (verifyHeader + verifyHeaderWithBatch):**
+```go
+// 배치 검증용
+func (ecc *ECC) verifyHeaderWithBatch(..., batchHeaders []*types.Header) error {
+    // 1. 타임스탬프 검증
+    // 2. 난이도 검증
+    // 3. 가스 리밋 검증
+    // 4. PoW seal 검증
+    if seal {
+        if err := ecc.verifySeal(chain, header); err != nil {
+            return err
+        }
+        // ✨ VRF 증명 검증 (배치 헤더 활용)
+        if err := ecc.verifyVRFProofWithBatch(chain, header, batchHeaders); err != nil {
+            return err
+        }
+    }
+    return nil
+}
+
+// 단일 검증용 (uncle 검증 등)
+func (ecc *ECC) verifyHeader(...) error {
+    // ... 동일한 검증 로직
+    if seal {
+        if err := ecc.verifySeal(chain, header); err != nil {
+            return err
+        }
+        // ✨ VRF 증명 검증 (체인에서만 조회)
+        if err := ecc.verifyVRFProof(chain, header); err != nil {
+            return err
+        }
+    }
+    return nil
+}
+```
+
+---
+
+### 2.3 VRF 검증 함수 (KAIJU만 존재)
+
+**verifyVRFProofWithBatch (line 510-558):**
+```go
+func (ecc *ECC) verifyVRFProofWithBatch(chain, header, batchHeaders) error {
+    // 1. VRF 증명과 공개키가 헤더에 존재하는지 확인
+    if header.VRFProof == nil || header.VRFPublicKey == nil {
+        return errors.New("VRF proof is required but missing")
+    }
+
+    // 2. 소티션 시드 해시 가져오기 (배치에서 먼저 검색)
+    seedHash := ecc.GetSortitionSeedHashWithBatch(chain, blockNumber, batchHeaders)
+
+    // 3. VRF 증명 검증
+    valid, err := Verify(header.VRFPublicKey, header.VRFProof, seedHash.Bytes())
+    if !valid {
+        return errors.New("invalid VRF proof for sortition seed")
+    }
+
+    // 4. 소티션 기준 통과 확인
+    if !CheckSortition(header.VRFProof) {
+        return errors.New("VRF proof does not pass sortition criteria")
+    }
+
+    return nil
+}
+```
+
+**verifyVRFProof (line 560-604):**
+- 배치 없이 체인에서만 시드 블록 조회
+- 단일 블록 검증 시 사용 (uncle 검증 등)
+
+---
+
+## 3. 블록 채굴 로직 차이 (sealer.go)
+
+### ECCPOW Seal 함수
+```go
+func (ecc *ECC) Seal(chain, block, results, stop) error {
+    // 1. 난이도 목표 설정
+    // 2. LDPC 디코딩 시도
+    // 3. 유효한 nonce 찾으면 블록 봉인
+    // ❌ VRF 소티션 검사 없음
+}
+```
+
+### KAIJU Seal 함수
+```go
+func (ecc *ECC) Seal(chain, block, results, stop) error {
+    // ✨ 0. VRF 키 확인
+    coinbase := block.Header().Coinbase
+    if err := ecc.EnsureVRFKeys(coinbase); err != nil {
+        log.Error("Failed to ensure VRF keys for mining")
+        return err
+    }
+
+    // ✨ 1. 소티션 에포크 자격 확인
+    blockNumber := block.Header().Number.Uint64()
+    eligible, vrfProof, err := ecc.IsEligibleForSortitionEpoch(chain, blockNumber)
+    if err != nil {
+        log.Error("Sortition eligibility check failed")
+        return err
+    }
+    if !eligible {
+        log.Info("❌ Not eligible to mine in this epoch")
+        return nil  // 채굴 중단
+    }
+
+    // ✨ 2. VRF 증명을 헤더에 추가
+    block.Header().VRFProof = vrfProof
+    block.Header().VRFPublicKey = ecc.vrfPublicKey
+
+    // 3. LDPC 디코딩으로 PoW 수행
+    // 4. 유효한 nonce 찾으면 블록 봉인
+}
+```
+
+**핵심 차이:**
+- **ECCPOW**: 언제든지 채굴 시도 가능
+- **KAIJU**: VRF 소티션을 통과한 에포크에서만 채굴 가능 (확률적 자격 부여)
+
+---
+
+## 4. VRF 소티션 메커니즘 (KAIJU만 존재)
+
+### 4.1 소티션 에포크 설정 (algorithm.go)
+
+```go
+const (
+    SortitionEpochLength = 100  // 100블록마다 새 에포크
+    SortitionSeedLookback = 10   // 에포크 시작 10블록 전의 해시를 시드로 사용
+)
+
+// 소티션 에포크 번호 계산
+func SortitionEpoch(blockNumber uint64) uint64 {
+    return blockNumber / SortitionEpochLength
+}
+
+// 시드 블록 번호 계산
+func GetSortitionSeedBlockNumber(blockNumber uint64) uint64 {
+    epoch := SortitionEpoch(blockNumber)
+    epochStart := epoch * SortitionEpochLength
+
+    if epochStart < SortitionSeedLookback {
+        return 0  // 제네시스 사용
+    }
+    return epochStart - SortitionSeedLookback
+}
+```
+
+**예시:**
+- 블록 250 채굴 시
+- 에포크 = 250 / 100 = **에포크 2**
+- 에포크 시작 = 2 × 100 = **블록 200**
+- 시드 블록 = 200 - 10 = **블록 190**
+- **블록 190의 해시**를 시드로 사용하여 VRF 증명 생성
+
+---
+
+### 4.2 소티션 자격 확인
+
+```go
+func (ecc *ECC) IsEligibleForSortitionEpoch(chain, blockNumber) (bool, []byte, error) {
+    // 1. 시드 해시 가져오기
+    seedHash := ecc.GetSortitionSeedHash(chain, blockNumber)
+
+    // 2. VRF 증명 생성
+    vrfProof, _, err := Prove(ecc.vrfPublicKey, ecc.vrfPrivateKey, seedHash.Bytes())
+
+    // 3. 소티션 기준 확인
+    eligible := CheckSortition(vrfProof)
+
+    return eligible, vrfProof, nil
+}
+
+// 소티션 통과 기준: VRF 출력의 첫 문자가 0-9인지 확인
+func Sortition(RN string) bool {
+    if len(RN) == 0 {
+        return false
+    }
+    firstChar := RN[0]
+    return (firstChar >= '0' && firstChar <= '9')  // ~62.5% 확률
+}
+```
+
+**소티션 확률:**
+- VRF 출력을 hex 인코딩
+- 첫 문자가 `0-9` (10/16) → 약 **62.5% 확률로 채굴 자격 획득**
+- 매 에포크(100블록)마다 새로운 추첨
+
+---
+
+### 4.3 시드 블록 조회 (배치 지원)
+
+**GetSortitionSeedHashWithBatch (algorithm.go line 104-126):**
+```go
+func (ecc *ECC) GetSortitionSeedHashWithBatch(chain, blockNumber, batchHeaders) Hash {
+    seedBlockNum := GetSortitionSeedBlockNumber(blockNumber)
+
+    // ✨ 먼저 배치에서 검색
+    if batchHeaders != nil {
+        for _, h := range batchHeaders {
+            if h.Number.Uint64() == seedBlockNum {
+                log.Debug("✅ Seed block found in current batch")
+                return h.Hash()
+            }
+        }
+    }
+
+    // 배치에 없으면 체인에서 조회
+    return ecc.GetSortitionSeedHash(chain, blockNumber)
+}
+```
+
+**왜 필요한가?**
+- 블록을 배치로 검증할 때 시드 블록이 아직 체인에 import되지 않았을 수 있음
+- 배치 내에서 먼저 찾아 검증 가능하게 함
+
+---
+
+## 5. VRF 암호화 구현 (KAIJU만 존재)
+
+### 5.1 VRF 키 관리 (vrf_keys.go)
+
+```go
+// coinbase 주소에서 결정론적으로 VRF 키쌍 생성
+func DeriveVRFKeys(coinbase common.Address, nodeKey []byte) (publicKey, privateKey []byte, err error) {
+    // 시드 생성: "WorldLand VRF Key Derivation:" + coinbase + nodeKey
+    message := append([]byte("WorldLand VRF Key Derivation:"), coinbase.Bytes()...)
+    if len(nodeKey) > 0 {
+        message = append(message, nodeKey...)
+    }
+
+    // SHA512로 시드 해싱
+    seed := sha512.Sum512(message)
+
+    // ED25519 키쌍 생성
+    reader := &deterministicReader{seed: seed[:]}
+    pub, priv, err := ed25519.GenerateKey(reader)
+
+    return pub, priv, nil
+}
+```
+
+**특징:**
+- Coinbase 주소만으로 VRF 키 재생성 가능
+- 별도의 키 관리 필요 없음
+
+---
+
+### 5.2 VRF 증명 생성 및 검증 (vct_ed25519.go)
+
+**증명 생성:**
+```go
+func Prove(pk []byte, sk []byte, m []byte) (pi, hash []byte, err error) {
+    // 1. 비밀키 확장
+    x := expandSecret(sk)
+
+    // 2. 메시지를 커브 점으로 변환
+    h := hashToCurve(m, pk)
+
+    // 3. gamma = h^x 계산
+    gamma := geScalarMult(h, x)
+
+    // 4. Fiat-Shamir 챌린지 생성
+    c := hashPoints(g, h, pk, gamma, g^k, h^k)
+
+    // 5. 응답 계산: s = k - c*x mod q
+    s := ...
+
+    // 6. 증명 pi = gamma || c || s
+    pi = gamma || c || s
+    return pi, Hash(pi), nil
+}
+```
+
+**증명 검증:**
+```go
+func Verify(pk []byte, pi []byte, m []byte) (bool, error) {
+    // 1. 증명 디코딩: gamma, c, s 추출
+    gamma, c, s := decodeProof(pi)
+
+    // 2. u = pk^c * g^s 계산
+    u := pk^c * g^s
+
+    // 3. v = gamma^c * h^s 계산
+    h := hashToCurve(m, pk)
+    v := gamma^c * h^s
+
+    // 4. 챌린지 재계산: c' = H(g, h, pk, gamma, u, v)
+    c2 := hashPoints(g, h, pk, gamma, u, v)
+
+    // 5. c == c' 확인
+    return c2 == c, nil
+}
+```
+
+---
+
+## 6. 블록 헤더 구조 차이
+
+### ECCPOW 블록 헤더
+```go
+type Header struct {
+    ParentHash  common.Hash
+    UncleHash   common.Hash
+    Coinbase    common.Address
+    Root        common.Hash
+    TxHash      common.Hash
+    ReceiptHash common.Hash
+    Bloom       Bloom
+    Difficulty  *big.Int
+    Number      *big.Int
+    GasLimit    uint64
+    GasUsed     uint64
+    Time        uint64
+    Extra       []byte
+    MixDigest   common.Hash  // LDPC digest
+    Nonce       BlockNonce   // PoW nonce
+    BaseFee     *big.Int
+}
+```
+
+### KAIJU 블록 헤더
+```go
+type Header struct {
+    // ... ECCPOW와 동일한 필드들
+
+    // ✨ 추가 필드
+    VRFProof     []byte  // VRF 증명 (80 bytes)
+    VRFPublicKey []byte  // VRF 공개키 (32 bytes)
+}
+```
+
+---
+
+## 7. 동기화 시 차이점
+
+### ECCPOW 동기화
+```
+1. 헤더 다운로드
+2. PoW 검증
+3. 블록 import
+```
+
+### KAIJU 동기화
+```
+1. 헤더 다운로드
+2. PoW 검증
+3. ✨ VRF 증명 검증
+   - 시드 블록이 배치에 있는지 확인
+   - 없으면 체인에서 조회
+   - VRF 증명 검증
+   - 소티션 기준 통과 확인
+4. 블록 import
+```
+
+**문제점 및 해결:**
+- **문제**: 시드 블록이 아직 import되지 않았을 때 검증 실패
+- **해결**: `GetSortitionSeedHashWithBatch`로 배치 내에서 시드 블록 찾기
+
+---
+
+## 8. 성능 및 보안 비교
+
+### ECCPOW
+
+**장점:**
+- ✅ 단순한 구조
+- ✅ 빠른 검증 속도
+- ✅ 검증 로직 오버헤드 최소
+
+**단점:**
+- ❌ 해시파워 집중 위험
+- ❌ 51% 공격에 취약
+- ❌ ASIC 독점 가능성
+
+### KAIJU
+
+**장점:**
+- ✅ VRF 소티션으로 중앙화 방지
+- ✅ 해시파워 집중 완화
+- ✅ 에포크 기반 공정한 채굴 기회
+- ✅ Fork 기반 조작 방지 (시드 lookback)
+
+**단점:**
+- ❌ 검증 로직 복잡도 증가
+- ❌ VRF 검증 오버헤드 (ED25519 연산)
+- ❌ 헤더 크기 증가 (~112 bytes)
+
+---
+
+## 9. 코드 변경 요약
+
+### consensus.go 변경사항
+
+| 함수명 | ECCPOW | KAIJU | 변경 이유 |
+|--------|--------|-------|-----------|
+| `verifyHeaderWorker` | `verifyHeader` 호출 | `verifyHeaderWithBatch` 호출 | 배치 헤더 전달 |
+| `verifyHeader` | PoW만 검증 | PoW + VRF 검증 | VRF 소티션 추가 |
+| `verifyHeaderWithBatch` | ❌ 없음 | ✅ 존재 | 배치 검증 지원 |
+| `verifyVRFProof` | ❌ 없음 | ✅ 존재 | VRF 단일 검증 |
+| `verifyVRFProofWithBatch` | ❌ 없음 | ✅ 존재 | VRF 배치 검증 |
+
+### algorithm.go 추가 함수
+
+| 함수명 | 설명 |
+|--------|------|
+| `SortitionEpoch` | 블록 번호 → 에포크 번호 |
+| `GetSortitionSeedBlockNumber` | 블록 번호 → 시드 블록 번호 |
+| `GetSortitionSeedHash` | 시드 블록 해시 조회 (체인) |
+| `GetSortitionSeedHashWithBatch` | 시드 블록 해시 조회 (배치 + 체인) |
+| `IsEligibleForSortitionEpoch` | 에포크 채굴 자격 확인 |
+
+### sealer.go 추가 로직
+
+| 단계 | ECCPOW | KAIJU |
+|------|--------|-------|
+| 1 | - | VRF 키 확인 |
+| 2 | - | 소티션 자격 확인 |
+| 3 | - | VRF 증명 헤더 추가 |
+| 4 | PoW 수행 | PoW 수행 |
+| 5 | 블록 봉인 | 블록 봉인 |
+
+---
+
+## 10. 사용 시나리오
+
+### ECCPOW 적합한 경우
+- 단순한 PoW 체인이 필요한 경우
+- 검증 속도가 중요한 경우
+- 초기 테스트넷
+
+### KAIJU 적합한 경우
+- 중앙화 방지가 중요한 경우
+- 메인넷 운영
+- 공정한 채굴 기회 분배 필요
+- ASIC 독점 방지
+
+---
+
+## 11. 마이그레이션 가이드
+
+ECCPOW에서 KAIJU로 전환 시:
+
+1. **제네시스 블록 재생성**
+   - VRF 필드 포함
+
+2. **체인데이터 초기화**
+   ```bash
+   rm -rf /root/worldland-data/worldland/chaindata
+   ```
+
+3. **설정 변경**
+   ```bash
+   --consensus kaiju  # KAIJU 엔진 사용
+   ```
+
+4. **VRF 키 설정**
+   - Coinbase 설정하면 자동으로 VRF 키 생성
+   - 별도 키 관리 불필요
+
+5. **동기화 모드 권장**
+   ```bash
+   --syncmode full  # 풀 싱크 권장 (300 블록 정도의 작은 체인)
+   ```
+
+---
+
+## 12. 결론
+
+### ECCPOW
+- **목적**: 단순하고 빠른 PoW 합의
+- **사용 사례**: 개발/테스트 환경
+
+### KAIJU
+- **목적**: 중앙화 방지 + 공정한 채굴 기회 분배
+- **사용 사례**: 프로덕션 메인넷
+- **핵심 기술**: LDPC PoW + VRF 소티션 하이브리드
+
+KAIJU는 ECCPOW의 모든 기능을 포함하면서 VRF 기반 소티션을 추가하여 더 공정하고 탈중앙화된 합의를 제공합니다.
